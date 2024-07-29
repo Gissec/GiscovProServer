@@ -1,5 +1,6 @@
 package com.example.proserver.security;
 
+import com.example.proserver.constans.Constans;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,13 +17,14 @@ public class JwtService {
     private long jwtExpirationTime;
 
     public String generateToken(String uuid) {
-        return "Bearer " + Jwts.builder()
+        return Constans.BEARER + Jwts.builder()
                 .setSubject(uuid)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationTime))
                 .signWith(SignatureAlgorithm.HS512, jwtSigningKey)
                 .compact();
     }
+
     public String getIdFromToken(String token) {
         return Jwts.parser()
                 .setSigningKey(jwtSigningKey)
@@ -30,6 +32,7 @@ public class JwtService {
                 .getBody()
                 .getSubject();
     }
+
     private boolean isTokenExpired(String token) {
         return Jwts.parser()
                 .setSigningKey(jwtSigningKey)
@@ -38,6 +41,7 @@ public class JwtService {
                 .getExpiration()
                 .before(new Date());
     }
+
     public boolean isTokenValid(String token) {
         final String id = getIdFromToken(token);
         return (id != null && !isTokenExpired(token));

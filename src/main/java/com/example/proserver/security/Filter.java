@@ -1,5 +1,6 @@
 package com.example.proserver.security;
 
+import com.example.proserver.constans.Constans;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,9 +29,9 @@ public class Filter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain)
             throws ServletException, IOException {
-        String authHeader = request.getHeader("Authorization");
+        String authHeader = request.getHeader(Constans.AUTHORIZATION);
 
-        if (StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")) {
+        if (StringUtils.hasText(authHeader) && authHeader.startsWith(Constans.BEARER)) {
             String token = authHeader.substring(7);
             if (jwtService.isTokenValid(token)) {
                 String username = jwtService.getIdFromToken(token);

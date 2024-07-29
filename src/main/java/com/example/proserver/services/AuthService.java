@@ -24,7 +24,7 @@ public class AuthService implements AuthServiceImpl {
 
     private final UserMapper userMapper;
 
-    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final PasswordEncoder passwordEncoder;
 
     public LoginUserResponse registrationRequest(RegisterUserRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {

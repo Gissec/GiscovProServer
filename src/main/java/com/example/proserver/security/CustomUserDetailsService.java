@@ -1,5 +1,7 @@
 package com.example.proserver.security;
 
+import com.example.proserver.constans.Constans;
+import com.example.proserver.error.ValidationConstants;
 import com.example.proserver.models.UserEntity;
 import com.example.proserver.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +20,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String identifier) throws UsernameNotFoundException {
         UserEntity user = userRepository.findById(UUID.fromString(identifier))
-                .orElseThrow(()-> new UsernameNotFoundException("User not found"));
+                .orElseThrow(()-> new UsernameNotFoundException(Constans.USER_NOT_FOUND));
         return new CustomUserDetails(user.getId());
     }
 }

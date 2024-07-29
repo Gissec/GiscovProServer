@@ -2,12 +2,10 @@ package com.example.proserver.DTOs.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
+
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CustomSuccessResponse<T>{
 
