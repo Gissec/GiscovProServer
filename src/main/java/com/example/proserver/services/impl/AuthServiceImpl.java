@@ -4,5 +4,5 @@ import com.example.proserver.DTOs.request.RegisterUserRequest;
 import com.example.proserver.DTOs.response.LoginUserResponse;
 
 public interface AuthServiceImpl {
-    public LoginUserResponse registrationRequest(RegisterUserRequest request);
+    LoginUserResponse registrationRequest(RegisterUserRequest request);
 }

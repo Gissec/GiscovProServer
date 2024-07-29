@@ -1,7 +1,7 @@
 package com.example.proserver.DTOs.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.*;
+import lombok.Data;
 
 import java.util.List;
 

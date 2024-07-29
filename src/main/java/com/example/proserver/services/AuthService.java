@@ -3,14 +3,13 @@ package com.example.proserver.services;
 import com.example.proserver.DTOs.request.RegisterUserRequest;
 import com.example.proserver.DTOs.response.LoginUserResponse;
 import com.example.proserver.error.CustomException;
-import com.example.proserver.error.ServerErrorCodes;
+import com.example.proserver.constans.ServerErrorCodes;
 import com.example.proserver.mappers.UserMapper;
 import com.example.proserver.models.UserEntity;
 import com.example.proserver.repositories.UserRepository;
 import com.example.proserver.security.JwtService;
 import com.example.proserver.services.impl.AuthServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

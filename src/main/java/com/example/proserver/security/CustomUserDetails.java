@@ -1,5 +1,6 @@
 package com.example.proserver.security;
 
+import com.example.proserver.constans.Constants;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,7 +26,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return "";
+        return Constants.EMPTY;
     }
 
     @Override

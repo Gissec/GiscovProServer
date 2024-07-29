@@ -1,6 +1,6 @@
 package com.example.proserver.DTOs.request;
 
-import com.example.proserver.error.ValidationConstants;
+import com.example.proserver.constans.ValidationConstants;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

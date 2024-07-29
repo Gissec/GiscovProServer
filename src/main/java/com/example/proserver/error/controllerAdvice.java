@@ -1,6 +1,7 @@
 package com.example.proserver.error;
 
 import com.example.proserver.DTOs.response.CustomSuccessResponse;
+import com.example.proserver.constans.ServerErrorCodes;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;

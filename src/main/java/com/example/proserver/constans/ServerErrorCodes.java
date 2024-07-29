@@ -1,4 +1,4 @@
-package com.example.proserver.error;
+package com.example.proserver.constans;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

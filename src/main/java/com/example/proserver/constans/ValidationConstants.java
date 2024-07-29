@@ -1,4 +1,4 @@
-package com.example.proserver.error;
+package com.example.proserver.constans;
 
 public interface ValidationConstants {
     String USERNAME_SIZE_NOT_VALID = "Username size should be between 3 and 25";

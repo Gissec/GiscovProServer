@@ -1,6 +1,6 @@
 package com.example.proserver.security;
 
-import com.example.proserver.constans.Constans;
+import com.example.proserver.constans.Constants;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +17,7 @@ public class JwtService {
     private long jwtExpirationTime;
 
     public String generateToken(String uuid) {
-        return Constans.BEARER + Jwts.builder()
+        return Constants.BEARER + Jwts.builder()
                 .setSubject(uuid)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationTime))
