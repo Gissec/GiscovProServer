@@ -1,13 +1,10 @@
 package com.example.proserver.security;
 
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
-import java.util.function.Function;
 
 @Service
 public class JwtService {
@@ -18,7 +15,6 @@ public class JwtService {
     @Value("${token.expiration.time}")
     private long jwtExpirationTime;
 
-    // Генерация токена
     public String generateToken(String uuid) {
         return "Bearer " + Jwts.builder()
                 .setSubject(uuid)
@@ -27,8 +23,6 @@ public class JwtService {
                 .signWith(SignatureAlgorithm.HS512, jwtSigningKey)
                 .compact();
     }
-
-    // Извлечение идентификатора из токена
     public String getIdFromToken(String token) {
         return Jwts.parser()
                 .setSigningKey(jwtSigningKey)
@@ -36,8 +30,6 @@ public class JwtService {
                 .getBody()
                 .getSubject();
     }
-
-    // Проверка просроченности токена
     private boolean isTokenExpired(String token) {
         return Jwts.parser()
                 .setSigningKey(jwtSigningKey)
@@ -46,8 +38,6 @@ public class JwtService {
                 .getExpiration()
                 .before(new Date());
     }
-
-    // Проверка валидности токена
     public boolean isTokenValid(String token) {
         final String id = getIdFromToken(token);
         return (id != null && !isTokenExpired(token));

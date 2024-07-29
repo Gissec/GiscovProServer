@@ -23,7 +23,7 @@ public class AuthUsersController {
 
     @PostMapping("/register")
     public ResponseEntity<CustomSuccessResponse<LoginUserResponse>> registrationRequest(@RequestBody
-                                                                                       @Valid RegisterUserRequest registerUserRequest) {
+                                                                  @Valid RegisterUserRequest registerUserRequest) {
         return ResponseEntity.ok(new CustomSuccessResponse<>(authService.registrationRequest(registerUserRequest)));
     }
 }

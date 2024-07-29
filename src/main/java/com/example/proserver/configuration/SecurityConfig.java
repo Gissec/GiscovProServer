@@ -20,26 +20,26 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final CustomUserDetailsService customUserDetailsService;
-    private final Filter customFilter; // Ваш фильтр
-    private final CustomEntryPoint customEntryPoint; // Ваша точка входа для авторизации
+    private final Filter customFilter;
+    private final CustomEntryPoint customEntryPoint;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable) // Отключение CSRF
-                .cors(AbstractHttpConfigurer::disable) // Отключение CORS
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Разрешение Pre-Flight запросов
-                                .requestMatchers("/v1/auth/**").permitAll() // Доступ без аутентификации
-                                .anyRequest().authenticated()  // Разрешить все остальные запросы только с аунтификацией
+                                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                                .requestMatchers("/v1/auth/**").permitAll()
+                                .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement ->
-                        sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Сессии не сохраняются
+                        sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class) // Фильтр перед обработкой запросов
+                .addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(exceptionHandling ->
-                        exceptionHandling.authenticationEntryPoint(customEntryPoint) // Точка входа для авторизации
+                        exceptionHandling.authenticationEntryPoint(customEntryPoint)
                 );
 
         return http.build();

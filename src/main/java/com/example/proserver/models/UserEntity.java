@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.util.UUID;
 
@@ -17,12 +17,8 @@ import java.util.UUID;
 @Table(name = "users")
 public class UserEntity {
         @Id
-        @GeneratedValue(generator = "UUID")
-        @GenericGenerator(
-                name = "UUID",
-                strategy = "org.hibernate.id.UUIDGenerator"
-        )
-        private UUID id; // UUID
+        @UuidGenerator
+        private UUID id;
         private String avatar;
         private String email;
         private String name;
