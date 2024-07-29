@@ -20,9 +20,14 @@ public class UserEntity {
         @Id
         @UuidGenerator
         private UUID id;
+
         private String avatar;
+
         private String email;
+
         private String name;
+
         private String role;
+
         private String password;
 }
