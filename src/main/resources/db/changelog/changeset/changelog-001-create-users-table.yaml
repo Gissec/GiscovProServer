@@ -1,0 +1,32 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001
+      author: Giscov
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: avatar
+                  type: VARCHAR(255)
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: role
+                  type: VARCHAR(255)
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
