@@ -1,13 +1,14 @@
 package com.example.proserver.services;
 
-import com.example.proserver.DTOs.response.PublicUserViewResponse;
+import com.example.proserver.DTOs.response.PublicUserResponse;
+
 import java.util.List;
 import java.util.UUID;
 
 public interface UsersService {
-    List<PublicUserViewResponse> getAllUsers();
+    List<PublicUserResponse> getAllUsers();
 
-    PublicUserViewResponse getUserInfoById(UUID id);
+    PublicUserResponse getUserInfoById(UUID id);
 
-    PublicUserViewResponse getUserInfo();
+    PublicUserResponse getUserInfo();
 }

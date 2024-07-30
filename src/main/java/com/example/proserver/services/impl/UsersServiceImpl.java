@@ -1,6 +1,6 @@
 package com.example.proserver.services.impl;
 
-import com.example.proserver.DTOs.response.PublicUserViewResponse;
+import com.example.proserver.DTOs.response.PublicUserResponse;
 import com.example.proserver.constans.ServerErrorCodes;
 import com.example.proserver.error.CustomException;
 import com.example.proserver.mappers.UserMapper;
@@ -23,23 +23,25 @@ public class UsersServiceImpl implements UsersService {
 
     private final UserMapper userMapper;
 
-    public List<PublicUserViewResponse> getAllUsers() {
+    public List<PublicUserResponse> getAllUsers() {
         List<UserEntity> users = userRepository.findAll();
         return users.stream().parallel().
                 map(user -> userMapper.userEntityToUserView(user)).toList();
     }
 
-    public PublicUserViewResponse getUserInfoById(UUID id) {
+    public PublicUserResponse getUserInfoById(UUID id) {
         UserEntity user = userRepository.findById(id)
                 .orElseThrow(() -> new CustomException(ServerErrorCodes.USER_NOT_FOUND));
         return userMapper.userEntityToUserView(user);
     }
 
-    public PublicUserViewResponse getUserInfo() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(authentication.getPrincipal().toString());
-        UUID userId = ((CustomUserDetails) authentication.getPrincipal()).getUserid();
-        return userMapper.userEntityToUserView(userRepository.findById(userId)
+    public PublicUserResponse getUserInfo() {
+        return userMapper.userEntityToUserView(userRepository.findById(getCurrentUserId())
                 .orElseThrow(() -> new CustomException(ServerErrorCodes.USER_NOT_FOUND)));
+    }
+
+    private UUID getCurrentUserId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return ((CustomUserDetails) authentication.getPrincipal()).getUserid();
     }
 }

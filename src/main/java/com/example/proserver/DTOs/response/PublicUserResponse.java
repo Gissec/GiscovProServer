@@ -4,7 +4,7 @@ import lombok.Data;
 import java.util.UUID;
 
 @Data
-public class PublicUserViewResponse {
+public class PublicUserResponse {
 
     private String avatar;
 

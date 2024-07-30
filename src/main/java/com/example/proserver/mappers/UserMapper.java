@@ -2,7 +2,7 @@ package com.example.proserver.mappers;
 
 import com.example.proserver.DTOs.request.RegisterUserRequest;
 import com.example.proserver.DTOs.response.LoginUserResponse;
-import com.example.proserver.DTOs.response.PublicUserViewResponse;
+import com.example.proserver.DTOs.response.PublicUserResponse;
 import com.example.proserver.models.UserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -15,6 +15,6 @@ public interface UserMapper {
     @Mapping(ignore = true, target = "token")
     LoginUserResponse userEntityToLogin(UserEntity userEntity);
 
-    PublicUserViewResponse userEntityToUserView(UserEntity userEntity);
+    PublicUserResponse userEntityToUserView(UserEntity userEntity);
 }
 

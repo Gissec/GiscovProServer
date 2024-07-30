@@ -1,7 +1,7 @@
 package com.example.proserver.controllers;
 
 import com.example.proserver.DTOs.response.CustomSuccessResponse;
-import com.example.proserver.DTOs.response.PublicUserViewResponse;
+import com.example.proserver.DTOs.response.PublicUserResponse;
 import com.example.proserver.constans.Constants;
 import com.example.proserver.constans.ValidationConstants;
 import com.example.proserver.services.UsersService;
@@ -26,19 +26,19 @@ public class UsersController {
     private final UsersService usersService;
 
     @GetMapping
-    public ResponseEntity<CustomSuccessResponse<List<PublicUserViewResponse>>> all() {
+    public ResponseEntity<CustomSuccessResponse<List<PublicUserResponse>>> all() {
         return ResponseEntity.ok(new CustomSuccessResponse<>(usersService.getAllUsers()));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CustomSuccessResponse<PublicUserViewResponse>> getUserInfoById(@PathVariable
+    public ResponseEntity<CustomSuccessResponse<PublicUserResponse>> getUserInfoById(@PathVariable
         @Size(min = 36, max = 36, message = ValidationConstants.MAX_UPLOAD_SIZE_EXCEEDED)
         @Pattern(regexp = Constants.REGULAR_UUID, message = ValidationConstants.MAX_UPLOAD_SIZE_EXCEEDED) String id) {
         return ResponseEntity.ok(new CustomSuccessResponse<>(usersService.getUserInfoById(UUID.fromString(id))));
     }
 
     @GetMapping("/info")
-    public ResponseEntity<CustomSuccessResponse<PublicUserViewResponse>> getUserInfo() {
+    public ResponseEntity<CustomSuccessResponse<PublicUserResponse>> getUserInfo() {
         return ResponseEntity.ok(new CustomSuccessResponse<>(usersService.getUserInfo()));
     }
 }
