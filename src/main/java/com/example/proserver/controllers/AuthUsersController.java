@@ -4,7 +4,7 @@ import com.example.proserver.DTOs.request.AuthRequest;
 import com.example.proserver.DTOs.request.RegisterUserRequest;
 import com.example.proserver.DTOs.response.CustomSuccessResponse;
 import com.example.proserver.DTOs.response.LoginUserResponse;
-import com.example.proserver.services.AuthService;
+import com.example.proserver.services.impl.AuthServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,17 +20,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthUsersController {
 
-    private final AuthService authService;
+    private final AuthServiceImpl authServiceImpl;
 
     @PostMapping("/register")
     public ResponseEntity<CustomSuccessResponse<LoginUserResponse>> registrationRequest(@RequestBody
                                                                   @Valid RegisterUserRequest registerUserRequest) {
-        return ResponseEntity.ok(new CustomSuccessResponse<>(authService.registrationRequest(registerUserRequest)));
+        return ResponseEntity.ok(new CustomSuccessResponse<>(authServiceImpl.registrationRequest(registerUserRequest)));
     }
 
     @PostMapping("/login")
     public ResponseEntity<CustomSuccessResponse<LoginUserResponse>> loginRequest(@RequestBody
                                                                                  @Valid AuthRequest authRequest) {
-        return ResponseEntity.ok(new CustomSuccessResponse<>(authService.loginRequest(authRequest)));
+        return ResponseEntity.ok(new CustomSuccessResponse<>(authServiceImpl.loginRequest(authRequest)));
     }
 }
