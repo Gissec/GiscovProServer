@@ -1,5 +1,6 @@
 package com.example.proserver.services;
 
+import com.example.proserver.DTOs.request.AuthDtoRequest;
 import com.example.proserver.DTOs.request.RegisterUserRequest;
 import com.example.proserver.DTOs.response.LoginUserResponse;
 import com.example.proserver.error.CustomException;
@@ -36,5 +37,15 @@ public class AuthService implements AuthServiceImpl {
         LoginUserResponse response = userMapper.userEntityToLogin(newUser);
         response.setToken(token);
         return response;
+    }
+
+    public LoginUserResponse loginRequest(AuthDtoRequest request) {
+        UserEntity user = userRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new CustomException(ServerErrorCodes.USER_NOT_FOUND));
+        if (passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            return userMapper.userEntityToLogin(user);
+        } else {
+            throw new CustomException(ServerErrorCodes.PASSWORD_NOT_VALID);
+        }
     }
 }

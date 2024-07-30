@@ -1,5 +1,6 @@
 package com.example.proserver.controllers;
 
+import com.example.proserver.DTOs.request.AuthDtoRequest;
 import com.example.proserver.DTOs.request.RegisterUserRequest;
 import com.example.proserver.DTOs.response.CustomSuccessResponse;
 import com.example.proserver.DTOs.response.LoginUserResponse;
@@ -25,5 +26,11 @@ public class AuthUsersController {
     public ResponseEntity<CustomSuccessResponse<LoginUserResponse>> registrationRequest(@RequestBody
                                                                   @Valid RegisterUserRequest registerUserRequest) {
         return ResponseEntity.ok(new CustomSuccessResponse<>(authService.registrationRequest(registerUserRequest)));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<CustomSuccessResponse<LoginUserResponse>> loginRequest(@RequestBody
+                                                                                 @Valid AuthDtoRequest authDtoRequest) {
+        return ResponseEntity.ok(new CustomSuccessResponse<>(authService.loginRequest(authDtoRequest)));
     }
 }
