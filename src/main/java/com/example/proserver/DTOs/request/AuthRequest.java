@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 
 @Getter
-public class AuthDtoRequest {
+public class AuthRequest {
     @Size(min = 3, max = 100, message = ValidationConstants.EMAIL_SIZE_NOT_VALID)
     @NotBlank(message = ValidationConstants.USER_EMAIL_NOT_VALID)
     @Email(message = ValidationConstants.USER_EMAIL_NOT_VALID)
