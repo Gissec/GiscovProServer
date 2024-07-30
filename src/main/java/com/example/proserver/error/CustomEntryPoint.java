@@ -1,6 +1,9 @@
 package com.example.proserver.error;
 
+import com.example.proserver.DTOs.response.BaseSuccessResponse;
 import com.example.proserver.constans.Constants;
+import com.example.proserver.constans.ServerErrorCodes;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.AuthenticationException;
@@ -14,6 +17,12 @@ public class CustomEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
                          AuthenticationException authException) throws IOException {
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, Constants.UNAUTHORIZED);
+
+        response.setContentType(Constants.CONTENT_TYPE);
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        response.getOutputStream().println(objectMapper
+                .writeValueAsString(new BaseSuccessResponse(ServerErrorCodes.UNAUTHORISED.getCode())));
     }
 }

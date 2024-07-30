@@ -1,13 +1,17 @@
 package com.example.proserver.error;
 
+import com.example.proserver.DTOs.response.BaseSuccessResponse;
 import com.example.proserver.DTOs.response.CustomSuccessResponse;
 import com.example.proserver.constans.ServerErrorCodes;
 import jakarta.validation.ConstraintViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 import java.util.List;
 
 @ControllerAdvice
@@ -42,5 +46,19 @@ public class controllerAdvice {
                 .toList();
         return ResponseEntity.badRequest()
                 .body(new CustomSuccessResponse<>(a.get(0), a));
+    }
+
+    @ExceptionHandler(MissingPathVariableException.class)
+    public ResponseEntity<BaseSuccessResponse> handleMissingPathVariableException(MissingPathVariableException ex) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(new BaseSuccessResponse(ServerErrorCodes.UNKNOWN.getCode()));
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<BaseSuccessResponse> handleNoResourceFoundException(NoResourceFoundException ex) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new BaseSuccessResponse(ServerErrorCodes.UNKNOWN.getCode()));
     }
 }
