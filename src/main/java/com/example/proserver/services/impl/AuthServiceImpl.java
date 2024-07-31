@@ -7,7 +7,7 @@ import com.example.proserver.error.CustomException;
 import com.example.proserver.constans.ServerErrorCodes;
 import com.example.proserver.mappers.UserMapper;
 import com.example.proserver.models.UserEntity;
-import com.example.proserver.repositories.UserRepository;
+import com.example.proserver.repositories.AuthUserRepository;
 import com.example.proserver.security.JwtService;
 import com.example.proserver.services.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
-    private final UserRepository userRepository;
+    private final AuthUserRepository authUserRepository;
 
     private final JwtService jwtService;
 
@@ -27,12 +27,12 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
 
     public LoginUserResponse registrationRequest(RegisterUserRequest request) {
-        if (userRepository.existsByEmail(request.getEmail())) {
+        if (authUserRepository.existsByEmail(request.getEmail())) {
             throw new CustomException(ServerErrorCodes.USER_ALREADY_EXISTS);
         }
         UserEntity newUser = userMapper.userDtoToUserEntity(request);
         newUser.setPassword(passwordEncoder.encode(request.getPassword()));
-        userRepository.save(newUser);
+        authUserRepository.save(newUser);
         String token = jwtService.generateToken(newUser.getId().toString());
         LoginUserResponse response = userMapper.userEntityToLogin(newUser);
         response.setToken(token);
@@ -40,7 +40,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     public LoginUserResponse loginRequest(AuthRequest request) {
-        UserEntity user = userRepository.findByEmail(request.getEmail())
+        UserEntity user = authUserRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new CustomException(ServerErrorCodes.USER_NOT_FOUND));
         if (passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             return userMapper.userEntityToLogin(user);
