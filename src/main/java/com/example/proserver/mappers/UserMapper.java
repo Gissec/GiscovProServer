@@ -15,6 +15,6 @@ public interface UserMapper {
     @Mapping(ignore = true, target = "token")
     LoginUserResponse userEntityToLogin(UserEntity userEntity);
 
-    PublicUserResponse userEntityToUserView(UserEntity userEntity);
+    PublicUserResponse userEntityToUser(UserEntity userEntity);
 }
 

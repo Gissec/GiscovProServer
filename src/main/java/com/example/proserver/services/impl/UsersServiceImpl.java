@@ -26,17 +26,17 @@ public class UsersServiceImpl implements UsersService {
     public List<PublicUserResponse> getAllUsers() {
         List<UserEntity> users = userRepository.findAll();
         return users.stream().parallel().
-                map(user -> userMapper.userEntityToUserView(user)).toList();
+                map(user -> userMapper.userEntityToUser(user)).toList();
     }
 
     public PublicUserResponse getUserInfoById(UUID id) {
         UserEntity user = userRepository.findById(id)
                 .orElseThrow(() -> new CustomException(ServerErrorCodes.USER_NOT_FOUND));
-        return userMapper.userEntityToUserView(user);
+        return userMapper.userEntityToUser(user);
     }
 
     public PublicUserResponse getUserInfo() {
-        return userMapper.userEntityToUserView(userRepository.findById(getCurrentUserId())
+        return userMapper.userEntityToUser(userRepository.findById(getCurrentUserId())
                 .orElseThrow(() -> new CustomException(ServerErrorCodes.USER_NOT_FOUND)));
     }
 
