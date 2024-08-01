@@ -1,19 +1,19 @@
 package com.example.GiscovAdvancedServer.controllers;
 
+import com.example.GiscovAdvancedServer.DTOs.request.PutUserRequest;
 import com.example.GiscovAdvancedServer.DTOs.response.CustomSuccessResponse;
 import com.example.GiscovAdvancedServer.DTOs.response.PublicUserResponse;
+import com.example.GiscovAdvancedServer.DTOs.response.PutUserResponse;
 import com.example.GiscovAdvancedServer.constans.Constants;
 import com.example.GiscovAdvancedServer.constans.ValidationConstants;
 import com.example.GiscovAdvancedServer.services.UsersService;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,5 +40,10 @@ public class UsersController {
     @GetMapping("/info")
     public ResponseEntity<CustomSuccessResponse<PublicUserResponse>> getUserInfo() {
         return ResponseEntity.ok(new CustomSuccessResponse<>(usersService.getUserInfo()));
+    }
+
+    @PutMapping()
+    public ResponseEntity<CustomSuccessResponse<PutUserResponse>> replaceUser(@Valid @RequestBody PutUserRequest request) {
+        return ResponseEntity.ok(new CustomSuccessResponse<>(usersService.replaceUser(request)));
     }
 }
