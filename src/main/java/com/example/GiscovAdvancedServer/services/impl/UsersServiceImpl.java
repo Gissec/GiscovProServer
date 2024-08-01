@@ -48,6 +48,11 @@ public class UsersServiceImpl implements UsersService {
     public PutUserResponse replaceUser(PutUserRequest putUserRequest) {
         UserEntity user = userRepository.findById(getCurrentUserId())
                 .orElseThrow(() -> new CustomException(ServerErrorCodes.USER_NOT_FOUND));
+        if (!putUserRequest.getEmail().equals(user.getEmail())) {
+            if (userRepository.existsByEmail(putUserRequest.getEmail())) {
+                throw new CustomException(ServerErrorCodes.USER_WITH_THIS_EMAIL_ALREADY_EXIST);
+            }
+        }
         user.setAvatar(putUserRequest.getAvatar());
         user.setEmail(putUserRequest.getEmail());
         user.setRole(putUserRequest.getRole());
