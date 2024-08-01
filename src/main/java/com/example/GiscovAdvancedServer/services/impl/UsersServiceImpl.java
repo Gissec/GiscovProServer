@@ -1,6 +1,7 @@
 package com.example.GiscovAdvancedServer.services.impl;
 
 import com.example.GiscovAdvancedServer.DTOs.request.PutUserRequest;
+import com.example.GiscovAdvancedServer.DTOs.response.BaseSuccessResponse;
 import com.example.GiscovAdvancedServer.DTOs.response.PublicUserResponse;
 import com.example.GiscovAdvancedServer.DTOs.response.PutUserResponse;
 import com.example.GiscovAdvancedServer.constans.ServerErrorCodes;
@@ -40,14 +41,12 @@ public class UsersServiceImpl implements UsersService {
     }
 
     public PublicUserResponse getUserInfo() {
-        return userMapper.userEntityToUser(userRepository.findById(getCurrentUserId())
-                .orElseThrow(() -> new CustomException(ServerErrorCodes.USER_NOT_FOUND)));
+        return userMapper.userEntityToUser(getCurrentUser());
     }
 
     @Transactional
     public PutUserResponse replaceUser(PutUserRequest putUserRequest) {
-        UserEntity user = userRepository.findById(getCurrentUserId())
-                .orElseThrow(() -> new CustomException(ServerErrorCodes.USER_NOT_FOUND));
+        UserEntity user = getCurrentUser();
         if (!putUserRequest.getEmail().equals(user.getEmail())) {
             if (userRepository.existsByEmail(putUserRequest.getEmail())) {
                 throw new CustomException(ServerErrorCodes.USER_WITH_THIS_EMAIL_ALREADY_EXIST);
@@ -58,6 +57,16 @@ public class UsersServiceImpl implements UsersService {
         user.setRole(putUserRequest.getRole());
         user.setName(putUserRequest.getName());
         return userMapper.userEntityToPutUserResponse(user);
+    }
+
+    public BaseSuccessResponse deleteUser() {
+        userRepository.deleteById(getCurrentUserId());
+        return new BaseSuccessResponse();
+    }
+
+    public UserEntity getCurrentUser() {
+        return userRepository.findById(getCurrentUserId())
+                .orElseThrow(() -> new CustomException(ServerErrorCodes.USER_NOT_FOUND));
     }
 
     private UUID getCurrentUserId() {

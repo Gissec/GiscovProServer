@@ -1,6 +1,7 @@
 package com.example.GiscovAdvancedServer.controllers;
 
 import com.example.GiscovAdvancedServer.DTOs.request.PutUserRequest;
+import com.example.GiscovAdvancedServer.DTOs.response.BaseSuccessResponse;
 import com.example.GiscovAdvancedServer.DTOs.response.CustomSuccessResponse;
 import com.example.GiscovAdvancedServer.DTOs.response.PublicUserResponse;
 import com.example.GiscovAdvancedServer.DTOs.response.PutUserResponse;
@@ -45,5 +46,10 @@ public class UsersController {
     @PutMapping()
     public ResponseEntity<CustomSuccessResponse<PutUserResponse>> replaceUser(@Valid @RequestBody PutUserRequest request) {
         return ResponseEntity.ok(new CustomSuccessResponse<>(usersService.replaceUser(request)));
+    }
+
+    @DeleteMapping
+    public ResponseEntity<BaseSuccessResponse> deleteUser() {
+        return ResponseEntity.ok(usersService.deleteUser());
     }
 }

@@ -1,6 +1,7 @@
 package com.example.GiscovAdvancedServer.services;
 
 import com.example.GiscovAdvancedServer.DTOs.request.PutUserRequest;
+import com.example.GiscovAdvancedServer.DTOs.response.BaseSuccessResponse;
 import com.example.GiscovAdvancedServer.DTOs.response.PublicUserResponse;
 import com.example.GiscovAdvancedServer.DTOs.response.PutUserResponse;
 import java.util.List;
@@ -14,4 +15,6 @@ public interface UsersService {
     PublicUserResponse getUserInfo();
 
     PutUserResponse replaceUser(PutUserRequest putUserRequest);
+
+    BaseSuccessResponse deleteUser();
 }
