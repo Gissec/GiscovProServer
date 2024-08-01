@@ -1,6 +1,8 @@
 package com.example.GiscovAdvancedServer.services.impl;
 
+import com.example.GiscovAdvancedServer.DTOs.request.PutUserRequest;
 import com.example.GiscovAdvancedServer.DTOs.response.PublicUserResponse;
+import com.example.GiscovAdvancedServer.DTOs.response.PutUserResponse;
 import com.example.GiscovAdvancedServer.constans.ServerErrorCodes;
 import com.example.GiscovAdvancedServer.error.CustomException;
 import com.example.GiscovAdvancedServer.security.CustomUserDetails;
@@ -12,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -38,6 +42,17 @@ public class UsersServiceImpl implements UsersService {
     public PublicUserResponse getUserInfo() {
         return userMapper.userEntityToUser(userRepository.findById(getCurrentUserId())
                 .orElseThrow(() -> new CustomException(ServerErrorCodes.USER_NOT_FOUND)));
+    }
+
+    @Transactional
+    public PutUserResponse replaceUser(PutUserRequest putUserRequest) {
+        UserEntity user = userRepository.findById(getCurrentUserId())
+                .orElseThrow(() -> new CustomException(ServerErrorCodes.USER_NOT_FOUND));
+        user.setAvatar(putUserRequest.getAvatar());
+        user.setEmail(putUserRequest.getEmail());
+        user.setRole(putUserRequest.getRole());
+        user.setName(putUserRequest.getName());
+        return userMapper.userEntityToPutUserResponse(user);
     }
 
     private UUID getCurrentUserId() {
