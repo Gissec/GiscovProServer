@@ -1,13 +1,13 @@
 package com.example.GiscovAdvancedServer.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
+
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -30,4 +30,7 @@ public class UserEntity {
         private String role;
 
         private String password;
+
+        @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+        private List<NewsEntity> news;
 }
