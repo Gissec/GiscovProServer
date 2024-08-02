@@ -1,6 +1,7 @@
 package com.example.GiscovAdvancedServer.services.impl;
 
 import com.example.GiscovAdvancedServer.DTOs.request.PutUserRequest;
+import com.example.GiscovAdvancedServer.DTOs.response.BaseSuccessResponse;
 import com.example.GiscovAdvancedServer.DTOs.response.PublicUserResponse;
 import com.example.GiscovAdvancedServer.DTOs.response.PutUserResponse;
 import com.example.GiscovAdvancedServer.constans.ServerErrorCodes;
@@ -40,14 +41,12 @@ public class UsersServiceImpl implements UsersService {
     }
 
     public PublicUserResponse getUserInfo() {
-        return userMapper.userEntityToUser(userRepository.findById(getCurrentUserId())
-                .orElseThrow(() -> new CustomException(ServerErrorCodes.USER_NOT_FOUND)));
+        return userMapper.userEntityToUser(getCurrentUser());
     }
 
     @Transactional
     public PutUserResponse replaceUser(PutUserRequest putUserRequest) {
-        UserEntity user = userRepository.findById(getCurrentUserId())
-                .orElseThrow(() -> new CustomException(ServerErrorCodes.USER_NOT_FOUND));
+        UserEntity user = getCurrentUser();
         if (!putUserRequest.getEmail().equals(user.getEmail())) {
             if (userRepository.existsByEmail(putUserRequest.getEmail())) {
                 throw new CustomException(ServerErrorCodes.USER_WITH_THIS_EMAIL_ALREADY_EXIST);
@@ -60,8 +59,14 @@ public class UsersServiceImpl implements UsersService {
         return userMapper.userEntityToPutUserResponse(user);
     }
 
-    private UUID getCurrentUserId() {
+    public BaseSuccessResponse deleteUser() {
+        userRepository.deleteById(getCurrentUser().getId());
+        return new BaseSuccessResponse();
+    }
+
+    public UserEntity getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return ((CustomUserDetails) authentication.getPrincipal()).getUserid();
+        return userRepository.findById(((CustomUserDetails) authentication.getPrincipal()).getUserid())
+                .orElseThrow(() -> new CustomException(ServerErrorCodes.USER_NOT_FOUND));
     }
 }
