@@ -15,4 +15,7 @@ public interface NewsService {
     CustomSuccessResponse<PageableResponse<List<GetNewsOutResponse>>> getNews(int page, int perPage);
 
     CustomSuccessResponse<PageableResponse<List<GetNewsOutResponse>>> getUserNews(int page, int perPage, UUID id);
+
+    PageableResponse<List<GetNewsOutResponse>> findNews(String author, String keywords, int page, int perPage,
+                                                        List<String> tags);
 }

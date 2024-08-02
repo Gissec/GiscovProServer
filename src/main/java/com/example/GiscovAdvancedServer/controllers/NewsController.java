@@ -58,4 +58,20 @@ public class NewsController {
           @Pattern(regexp = Constants.REGULAR_UUID, message = ValidationConstants.MAX_UPLOAD_SIZE_EXCEEDED) String id) {
         return ResponseEntity.ok(newsService.getUserNews(page, perPage, UUID.fromString(id)));
     }
+
+    @GetMapping("/find")
+    public ResponseEntity<PageableResponse<List<GetNewsOutResponse>>> findNews(
+            @RequestParam(required = false) String author,
+            @RequestParam(required = false) String keywords,
+            @RequestParam
+            @Positive(message = ValidationConstants.TASKS_PAGE_GREATER_OR_EQUAL_1)
+            @Max(value = 100, message = ValidationConstants.PAGE_SIZE_NOT_VALID)
+            @NotNull(message = ValidationConstants.PARAM_PAGE_NOT_NULL) Integer page,
+            @RequestParam
+            @Positive(message = ValidationConstants.TASKS_PER_PAGE_GREATER_OR_EQUAL_1)
+            @Max(value = 100, message = ValidationConstants.TASKS_PER_PAGE_LESS_OR_EQUAL_100)
+            @NotNull(message = ValidationConstants.PARAM_PER_PAGE_NOT_NULL) Integer perPage,
+            @RequestParam(required = false) List<String> tags) {
+        return ResponseEntity.ok(newsService.findNews(author, keywords, page, perPage, tags));
+    }
 }

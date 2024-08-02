@@ -66,4 +66,13 @@ public class NewsServiceImpl implements NewsService {
                 .map(newsMapper::newsEntityToGetNewsOutResponse).toList();
         return new CustomSuccessResponse<>(new PageableResponse<>(news, Long.valueOf(news.size())));
     }
+
+    public PageableResponse<List<GetNewsOutResponse>> findNews(String author, String keywords, int page, int perPage,
+                                                               List<String> tags) {
+        Pageable pageable = PageRequest.of(page - 1, perPage);
+        Page<NewsEntity> newsPage = newsRepository.findAllByAuthorAndKeywordsAndTags(author, keywords, tags, pageable);
+        List<GetNewsOutResponse> news = newsPage.getContent().stream()
+                .map(newsMapper::newsEntityToGetNewsOutResponse).toList();
+        return new PageableResponse<>(news, Long.valueOf(news.size()));
+    }
 }
