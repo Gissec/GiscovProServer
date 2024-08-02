@@ -60,17 +60,13 @@ public class UsersServiceImpl implements UsersService {
     }
 
     public BaseSuccessResponse deleteUser() {
-        userRepository.deleteById(getCurrentUserId());
+        userRepository.deleteById(getCurrentUser().getId());
         return new BaseSuccessResponse();
     }
 
     public UserEntity getCurrentUser() {
-        return userRepository.findById(getCurrentUserId())
-                .orElseThrow(() -> new CustomException(ServerErrorCodes.USER_NOT_FOUND));
-    }
-
-    private UUID getCurrentUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return ((CustomUserDetails) authentication.getPrincipal()).getUserid();
+        return userRepository.findById(((CustomUserDetails) authentication.getPrincipal()).getUserid())
+                .orElseThrow(() -> new CustomException(ServerErrorCodes.USER_NOT_FOUND));
     }
 }
