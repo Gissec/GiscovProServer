@@ -33,6 +33,7 @@ public class SecurityConfig {
                         authorizeRequests
                                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                                 .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/news/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement ->

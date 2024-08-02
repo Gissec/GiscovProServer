@@ -21,4 +21,6 @@ public interface UsersService {
     BaseSuccessResponse deleteUser();
 
     UserEntity getCurrentUser();
+
+    UserEntity getUserById(UUID id);
 }
