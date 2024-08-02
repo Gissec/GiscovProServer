@@ -50,7 +50,7 @@ public class NewsServiceImpl implements NewsService {
         return new CreateNewsSuccessResponse(news.getId());
     }
 
-    public CustomSuccessResponse<PageableResponse<List<GetNewsOutResponse>>> getNews(int page, int perPage) {
+    public CustomSuccessResponse<PageableResponse<List<GetNewsOutResponse>>> getNews(Integer page, Integer perPage) {
         Pageable pageable = PageRequest.of(page - 1, perPage);
         Page<NewsEntity> newsPage = newsRepository.findAll(pageable);
         List<GetNewsOutResponse> news = newsPage.getContent().stream()
@@ -58,7 +58,8 @@ public class NewsServiceImpl implements NewsService {
         return new CustomSuccessResponse<>(new PageableResponse<>(news, Long.valueOf(news.size())));
     }
 
-    public CustomSuccessResponse<PageableResponse<List<GetNewsOutResponse>>> getUserNews(int page, int perPage, UUID id) {
+    public CustomSuccessResponse<PageableResponse<List<GetNewsOutResponse>>> getUserNews(Integer page, Integer perPage,
+                                                                                         UUID id) {
         Pageable pageable = PageRequest.of(page - 1, perPage);
         UserEntity user = userService.getUserById(id);
         Page<NewsEntity> newsPage = newsRepository.findByUser(user, pageable);
@@ -67,8 +68,8 @@ public class NewsServiceImpl implements NewsService {
         return new CustomSuccessResponse<>(new PageableResponse<>(news, Long.valueOf(news.size())));
     }
 
-    public PageableResponse<List<GetNewsOutResponse>> findNews(String author, String keywords, int page, int perPage,
-                                                               List<String> tags) {
+    public PageableResponse<List<GetNewsOutResponse>> findNews(String author, String keywords, Integer page,
+                                                               Integer perPage, List<String> tags) {
         Pageable pageable = PageRequest.of(page - 1, perPage);
         Page<NewsEntity> newsPage = newsRepository.findAllByAuthorAndKeywordsAndTags(author, keywords, tags, pageable);
         List<GetNewsOutResponse> news = newsPage.getContent().stream()
