@@ -69,4 +69,9 @@ public class UsersServiceImpl implements UsersService {
         return userRepository.findById(((CustomUserDetails) authentication.getPrincipal()).getUserid())
                 .orElseThrow(() -> new CustomException(ServerErrorCodes.USER_NOT_FOUND));
     }
+
+    public UserEntity getUserById(UUID id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new CustomException(ServerErrorCodes.USER_NOT_FOUND));
+    }
 }
