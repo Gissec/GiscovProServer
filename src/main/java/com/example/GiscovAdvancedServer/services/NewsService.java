@@ -1,10 +1,8 @@
 package com.example.GiscovAdvancedServer.services;
 
 import com.example.GiscovAdvancedServer.DTOs.request.NewsRequest;
-import com.example.GiscovAdvancedServer.DTOs.response.CreateNewsSuccessResponse;
-import com.example.GiscovAdvancedServer.DTOs.response.CustomSuccessResponse;
-import com.example.GiscovAdvancedServer.DTOs.response.GetNewsOutResponse;
-import com.example.GiscovAdvancedServer.DTOs.response.PageableResponse;
+import com.example.GiscovAdvancedServer.DTOs.response.*;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -18,4 +16,6 @@ public interface NewsService {
 
     PageableResponse<List<GetNewsOutResponse>> findNews(String author, String keywords, Integer page, Integer perPage,
                                                         List<String> tags);
+
+    BaseSuccessResponse putNews(Long id, NewsRequest newsRequest);
 }

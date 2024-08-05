@@ -1,10 +1,13 @@
 package com.example.GiscovAdvancedServer.services.impl;
 
 import com.example.GiscovAdvancedServer.DTOs.request.NewsRequest;
+import com.example.GiscovAdvancedServer.DTOs.response.BaseSuccessResponse;
 import com.example.GiscovAdvancedServer.DTOs.response.CreateNewsSuccessResponse;
 import com.example.GiscovAdvancedServer.DTOs.response.CustomSuccessResponse;
 import com.example.GiscovAdvancedServer.DTOs.response.GetNewsOutResponse;
 import com.example.GiscovAdvancedServer.DTOs.response.PageableResponse;
+import com.example.GiscovAdvancedServer.constans.ServerErrorCodes;
+import com.example.GiscovAdvancedServer.error.CustomException;
 import com.example.GiscovAdvancedServer.mappers.NewsMapper;
 import com.example.GiscovAdvancedServer.models.NewsEntity;
 import com.example.GiscovAdvancedServer.models.TagsEntity;
@@ -18,6 +21,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -75,5 +80,27 @@ public class NewsServiceImpl implements NewsService {
         List<GetNewsOutResponse> news = newsPage.getContent().stream()
                 .map(newsMapper::newsEntityToGetNewsOutResponse).toList();
         return new PageableResponse<>(news, Long.valueOf(news.size()));
+    }
+
+    public BaseSuccessResponse putNews(Long id, NewsRequest newsRequest) {
+        UserEntity user = userService.getCurrentUser();
+        NewsEntity news = newsRepository.getNewsById(id).orElseThrow(() -> new CustomException(ServerErrorCodes.NEWS_NOT_FOUND));
+        if (user.getId().equals(news.getUser().getId())) {
+            news = newsMapper.newsRequestToEntity(newsRequest);
+            news.setUser(user);
+            news.setId(id);
+            List<TagsEntity> tags = tagsService.getAndSaveTags(newsRequest.getTags().stream()
+                    .parallel()
+                    .map(tag -> {
+                        TagsEntity tagsEntity = new TagsEntity();
+                        tagsEntity.setTitle(tag);
+                        return tagsEntity;
+                    })
+                    .collect(Collectors.toList()));
+            news.setTags(tags);
+            newsRepository.save(news);
+            return new BaseSuccessResponse();
+        }
+        throw new CustomException(ServerErrorCodes.NEWS_NOT_FOUND);
     }
 }
