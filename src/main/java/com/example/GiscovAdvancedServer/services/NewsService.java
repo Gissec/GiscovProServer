@@ -2,7 +2,6 @@ package com.example.GiscovAdvancedServer.services;
 
 import com.example.GiscovAdvancedServer.DTOs.request.NewsRequest;
 import com.example.GiscovAdvancedServer.DTOs.response.*;
-
 import java.util.List;
 import java.util.UUID;
 
