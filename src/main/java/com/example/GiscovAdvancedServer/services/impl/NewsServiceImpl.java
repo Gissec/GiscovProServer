@@ -21,6 +21,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -80,9 +81,11 @@ public class NewsServiceImpl implements NewsService {
         return new PageableResponse<>(news, Long.valueOf(news.size()));
     }
 
+    @Transactional
     public BaseSuccessResponse putNews(Long id, NewsRequest newsRequest) {
         UserEntity user = userService.getCurrentUser();
-        NewsEntity news = newsRepository.getNewsById(id).orElseThrow(() -> new CustomException(ServerErrorCodes.NEWS_NOT_FOUND));
+        NewsEntity news = newsRepository.getNewsById(id)
+                                        .orElseThrow(() -> new CustomException(ServerErrorCodes.NEWS_NOT_FOUND));
         if (user.getId().equals(news.getUser().getId())) {
             news = newsMapper.newsRequestToEntity(newsRequest);
             news.setUser(user);
