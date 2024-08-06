@@ -6,6 +6,7 @@ public interface ValidationConstants {
     String NEWS_DESCRIPTION_SIZE_NOT_VALID = "News description size should be between 3 and 130";
 
     String NEWS_DESCRIPTION_HAS_TO_BE_PRESENT = "News description mustn't be null";
+
     String ID_MUST_BE_POSITIVE = "ID must be grater than zero";
 
     String REQUIRED_INT_PARAM_PAGE_IS_NOT_PRESENT = "Parameter page mustn't be null";
