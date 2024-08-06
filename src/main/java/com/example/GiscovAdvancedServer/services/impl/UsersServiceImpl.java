@@ -58,6 +58,7 @@ public class UsersServiceImpl implements UsersService {
         return userMapper.userEntityToPutUserResponse(user);
     }
 
+    @Transactional
     public BaseSuccessResponse deleteUser() {
         userRepository.deleteById(getCurrentUser().getId());
         return new BaseSuccessResponse();

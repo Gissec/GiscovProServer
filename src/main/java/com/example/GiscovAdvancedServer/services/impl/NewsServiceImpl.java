@@ -104,4 +104,16 @@ public class NewsServiceImpl implements NewsService {
         }
         throw new CustomException(ServerErrorCodes.NEWS_NOT_FOUND);
     }
+
+    @Transactional
+    public BaseSuccessResponse deleteNews(Long id) {
+        UserEntity user = userService.getCurrentUser();
+        NewsEntity news = newsRepository.getNewsById(id).orElseThrow(() -> new CustomException(ServerErrorCodes.NEWS_NOT_FOUND));
+        if (user.getId().equals(news.getUser().getId())) {
+            newsRepository.delete(news);
+            return new BaseSuccessResponse();
+        } else {
+            throw new CustomException(ServerErrorCodes.NEWS_NOT_FOUND);
+        }
+    }
 }
