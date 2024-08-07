@@ -10,6 +10,7 @@ import com.example.GiscovAdvancedServer.security.CustomUserDetails;
 import com.example.GiscovAdvancedServer.mappers.UserMapper;
 import com.example.GiscovAdvancedServer.models.UserEntity;
 import com.example.GiscovAdvancedServer.repositories.UserRepository;
+import com.example.GiscovAdvancedServer.services.TagsService;
 import com.example.GiscovAdvancedServer.services.UsersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -26,6 +27,8 @@ public class UsersServiceImpl implements UsersService {
     private final UserRepository userRepository;
 
     private final UserMapper userMapper;
+
+    private final TagsService tagsService;
 
     public List<PublicUserResponse> getAllUsers() {
         List<UserEntity> users = userRepository.findAll();
@@ -61,6 +64,7 @@ public class UsersServiceImpl implements UsersService {
     @Transactional
     public BaseSuccessResponse deleteUser() {
         userRepository.deleteById(getCurrentUser().getId());
+        tagsService.deleteTags();
         return new BaseSuccessResponse();
     }
 
