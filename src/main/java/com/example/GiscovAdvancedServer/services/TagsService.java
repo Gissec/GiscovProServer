@@ -1,8 +1,12 @@
 package com.example.GiscovAdvancedServer.services;
 
 import com.example.GiscovAdvancedServer.models.TagsEntity;
-import java.util.List;
+import java.util.Set;
 
 public interface TagsService {
-    List<TagsEntity> getAndSaveTags(List<TagsEntity> news);
+    Set<TagsEntity> getAndSaveTags(Set<TagsEntity> tags);
+
+    void deleteTags();
+
+    TagsEntity findByTitle(String title);
 }

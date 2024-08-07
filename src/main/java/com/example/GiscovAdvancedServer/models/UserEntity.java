@@ -1,6 +1,10 @@
 package com.example.GiscovAdvancedServer.models;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,6 +34,6 @@ public class UserEntity {
 
         private String password;
 
-        @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+        @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
         private List<NewsEntity> news;
 }
