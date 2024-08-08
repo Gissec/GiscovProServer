@@ -1,7 +1,6 @@
 package com.example.GiscovAdvancedServer.services.impl;
 
 import com.example.GiscovAdvancedServer.DTOs.request.PutUserRequest;
-import com.example.GiscovAdvancedServer.DTOs.response.BaseSuccessResponse;
 import com.example.GiscovAdvancedServer.DTOs.response.PublicUserResponse;
 import com.example.GiscovAdvancedServer.DTOs.response.PutUserResponse;
 import com.example.GiscovAdvancedServer.constans.ServerErrorCodes;
@@ -62,10 +61,9 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Transactional
-    public BaseSuccessResponse deleteUser() {
+    public void deleteUser() {
         userRepository.deleteById(getCurrentUser().getId());
         tagsService.deleteTags();
-        return new BaseSuccessResponse();
     }
 
     public UserEntity getCurrentUser() {

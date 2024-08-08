@@ -1,14 +1,10 @@
 package com.example.GiscovAdvancedServer.services.impl;
 
-import com.example.GiscovAdvancedServer.DTOs.response.CustomSuccessResponse;
 import com.example.GiscovAdvancedServer.constans.Constants;
 import com.example.GiscovAdvancedServer.constans.ServerErrorCodes;
 import com.example.GiscovAdvancedServer.error.CustomException;
 import com.example.GiscovAdvancedServer.services.FilesService;
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -22,7 +18,7 @@ public class FilesServiceImpl implements FilesService {
 
     private final Path fileStorageLocation = Paths.get(Constants.STORAGE_DIR);
 
-    public CustomSuccessResponse uploadFile(MultipartFile file) {
+    public String uploadFile(MultipartFile file) {
         if (file.isEmpty()) {
             throw new CustomException(ServerErrorCodes.UNKNOWN);
         }
@@ -35,20 +31,18 @@ public class FilesServiceImpl implements FilesService {
                     .path(Constants.PATH_FILE)
                     .path(originalFileName)
                     .toUriString();
-            return new CustomSuccessResponse(fileDownloadUri);
+            return fileDownloadUri;
         } catch (IOException e) {
             throw new CustomException(ServerErrorCodes.UNKNOWN);
         }
     }
 
-    public ResponseEntity<UrlResource> downloadFile(String filename) {
+    public UrlResource downloadFile(String filename) {
         try {
             Path filePath = fileStorageLocation.resolve(filename).normalize();
-            Resource resource = new UrlResource(filePath.toUri());
+            UrlResource resource = new UrlResource(filePath.toUri());
             if (resource.exists()) {
-                return ResponseEntity.ok()
-                        .header(HttpHeaders.CONTENT_TYPE,Constants.MULTIPART)
-                        .body((UrlResource) resource);
+                return resource;
             } else {
                 throw new CustomException(ServerErrorCodes.EXCEPTION_HANDLER_NOT_PROVIDED);
             }

@@ -57,6 +57,7 @@ public class UsersController {
 
     @DeleteMapping
     public ResponseEntity<BaseSuccessResponse> deleteUser() {
-        return ResponseEntity.ok(usersService.deleteUser());
+        usersService.deleteUser();
+        return ResponseEntity.ok(new BaseSuccessResponse());
     }
 }
