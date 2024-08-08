@@ -1,6 +1,5 @@
 package com.example.GiscovAdvancedServer.DTOs.response;
 
-import com.example.GiscovAdvancedServer.models.TagsEntity;
 import lombok.Data;
 import java.util.List;
 import java.util.UUID;
@@ -13,7 +12,7 @@ public class GetNewsOutResponse {
 
     private String image;
 
-    private List<TagsEntity> tags;
+    private List<TagResponse> tags;
 
     private String title;
 

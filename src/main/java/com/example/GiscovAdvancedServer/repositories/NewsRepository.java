@@ -1,7 +1,6 @@
 package com.example.GiscovAdvancedServer.repositories;
 
 import com.example.GiscovAdvancedServer.models.NewsEntity;
-import com.example.GiscovAdvancedServer.models.TagsEntity;
 import com.example.GiscovAdvancedServer.models.UserEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -50,6 +50,7 @@ public class NewsServiceImpl implements NewsService {
     public PageableResponse<List<GetNewsOutResponse>> getNews(Integer page, Integer perPage) {
         Pageable pageable = PageRequest.of(page - 1, perPage);
         Page<NewsEntity> newsPage = newsRepository.findAll(pageable);
+        List<NewsEntity> test = newsPage.getContent();
         List<GetNewsOutResponse> news = newsPage.getContent().stream()
                 .map(newsMapper::newsEntityToGetNewsOutResponse).toList();
         return new PageableResponse<>(news, Long.valueOf(news.size()));
@@ -83,16 +84,12 @@ public class NewsServiceImpl implements NewsService {
             news = newsMapper.newsRequestToEntity(newsRequest);
             news.setUser(user);
             news.setId(id);
-            Set<TagsEntity> tags = tagsService.getAndSaveTags(newsRequest.getTags().stream()
-                    .parallel()
-                    .map(tag -> {
-                        TagsEntity tagsEntity = new TagsEntity();
-                        tagsEntity.setTitle(tag);
-                        return tagsEntity;
-                    })
-                    .collect(Collectors.toSet()));
+            Set<TagsEntity> tags = newsRequest.getTags().stream()
+                    .map(tagString -> tagsService.findByTitle(tagString))
+                    .collect(Collectors.toSet());
             news.setTags(tags);
             newsRepository.save(news);
+            return;
         }
         throw new CustomException(ServerErrorCodes.NEWS_NOT_FOUND);
     }
