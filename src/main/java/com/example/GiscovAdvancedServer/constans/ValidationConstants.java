@@ -96,4 +96,6 @@ public interface ValidationConstants {
     String UNKNOWN = "unknown";
 
     String USER_ALREADY_EXISTS = "User already exists";
+
+    String EXCEPTION_HANDLER_NOT_PROVIDED = "Exception handler not provided";
 }

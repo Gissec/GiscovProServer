@@ -13,7 +13,6 @@ import com.example.GiscovAdvancedServer.models.NewsEntity;
 import com.example.GiscovAdvancedServer.models.TagsEntity;
 import com.example.GiscovAdvancedServer.models.UserEntity;
 import com.example.GiscovAdvancedServer.repositories.NewsRepository;
-import com.example.GiscovAdvancedServer.repositories.TagsRepository;
 import com.example.GiscovAdvancedServer.services.NewsService;
 import com.example.GiscovAdvancedServer.services.TagsService;
 import com.example.GiscovAdvancedServer.services.UsersService;

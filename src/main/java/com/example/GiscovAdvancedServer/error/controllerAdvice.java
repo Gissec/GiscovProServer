@@ -11,6 +11,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 import java.util.List;
 
@@ -60,5 +61,10 @@ public class controllerAdvice {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(new BaseSuccessResponse(ServerErrorCodes.UNKNOWN.getCode()));
+    }
+
+    @ExceptionHandler(MultipartException.class)
+    public ResponseEntity<BaseSuccessResponse> handlerMultipartException(MultipartException ex) {
+        return ResponseEntity.badRequest().body(new BaseSuccessResponse(ServerErrorCodes.UNKNOWN.getCode()));
     }
 }

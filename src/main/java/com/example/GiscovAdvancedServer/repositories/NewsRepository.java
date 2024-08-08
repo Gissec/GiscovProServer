@@ -30,7 +30,4 @@ public interface NewsRepository extends JpaRepository<NewsEntity, Long> {
     );
 
     Optional<NewsEntity> getNewsById(Long id);
-
-    @Query("SELECT n.tags FROM NewsEntity n WHERE n.id = :newsId")
-    List<TagsEntity> getTagsByNewsId(@Param("newsId") Long newsId);
 }
