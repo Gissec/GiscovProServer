@@ -1,9 +1,6 @@
 package com.example.GiscovAdvancedServer.services.impl;
 
 import com.example.GiscovAdvancedServer.DTOs.request.NewsRequest;
-import com.example.GiscovAdvancedServer.DTOs.response.BaseSuccessResponse;
-import com.example.GiscovAdvancedServer.DTOs.response.CreateNewsSuccessResponse;
-import com.example.GiscovAdvancedServer.DTOs.response.CustomSuccessResponse;
 import com.example.GiscovAdvancedServer.DTOs.response.GetNewsOutResponse;
 import com.example.GiscovAdvancedServer.DTOs.response.PageableResponse;
 import com.example.GiscovAdvancedServer.constans.ServerErrorCodes;
@@ -13,7 +10,6 @@ import com.example.GiscovAdvancedServer.models.NewsEntity;
 import com.example.GiscovAdvancedServer.models.TagsEntity;
 import com.example.GiscovAdvancedServer.models.UserEntity;
 import com.example.GiscovAdvancedServer.repositories.NewsRepository;
-import com.example.GiscovAdvancedServer.repositories.TagsRepository;
 import com.example.GiscovAdvancedServer.services.NewsService;
 import com.example.GiscovAdvancedServer.services.TagsService;
 import com.example.GiscovAdvancedServer.services.UsersService;
@@ -40,7 +36,7 @@ public class NewsServiceImpl implements NewsService {
 
     private final UsersService userService;
 
-    public CreateNewsSuccessResponse createNews(NewsRequest request) {
+    public Long createNews(NewsRequest request) {
         NewsEntity news = newsMapper.newsRequestToEntity(request);
         news.setUser(userService.getCurrentUser());
         Set<TagsEntity> tags = request.getTags().stream()
@@ -48,25 +44,26 @@ public class NewsServiceImpl implements NewsService {
                         .collect(Collectors.toSet());
         news.setTags(tags);
         newsRepository.save(news);
-        return new CreateNewsSuccessResponse(news.getId());
+        return news.getId();
     }
 
-    public CustomSuccessResponse<PageableResponse<List<GetNewsOutResponse>>> getNews(Integer page, Integer perPage) {
+    public PageableResponse<List<GetNewsOutResponse>> getNews(Integer page, Integer perPage) {
         Pageable pageable = PageRequest.of(page - 1, perPage);
         Page<NewsEntity> newsPage = newsRepository.findAll(pageable);
+        List<NewsEntity> test = newsPage.getContent();
         List<GetNewsOutResponse> news = newsPage.getContent().stream()
                 .map(newsMapper::newsEntityToGetNewsOutResponse).toList();
-        return new CustomSuccessResponse<>(new PageableResponse<>(news, Long.valueOf(news.size())));
+        return new PageableResponse<>(news, Long.valueOf(news.size()));
     }
 
-    public CustomSuccessResponse<PageableResponse<List<GetNewsOutResponse>>> getUserNews(Integer page, Integer perPage,
+    public PageableResponse<List<GetNewsOutResponse>> getUserNews(Integer page, Integer perPage,
                                                                                          UUID id) {
         Pageable pageable = PageRequest.of(page - 1, perPage);
         UserEntity user = userService.getUserById(id);
         Page<NewsEntity> newsPage = newsRepository.findByUser(user, pageable);
         List<GetNewsOutResponse> news = newsPage.getContent().stream()
                 .map(newsMapper::newsEntityToGetNewsOutResponse).toList();
-        return new CustomSuccessResponse<>(new PageableResponse<>(news, Long.valueOf(news.size())));
+        return new PageableResponse<>(news, Long.valueOf(news.size()));
     }
 
     public PageableResponse<List<GetNewsOutResponse>> findNews(String author, String keywords, Integer page,
@@ -79,7 +76,7 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Transactional
-    public BaseSuccessResponse putNews(Long id, NewsRequest newsRequest) {
+    public void putNews(Long id, NewsRequest newsRequest) {
         UserEntity user = userService.getCurrentUser();
         NewsEntity news = newsRepository.getNewsById(id)
                                         .orElseThrow(() -> new CustomException(ServerErrorCodes.NEWS_NOT_FOUND));
@@ -87,30 +84,24 @@ public class NewsServiceImpl implements NewsService {
             news = newsMapper.newsRequestToEntity(newsRequest);
             news.setUser(user);
             news.setId(id);
-            Set<TagsEntity> tags = tagsService.getAndSaveTags(newsRequest.getTags().stream()
-                    .parallel()
-                    .map(tag -> {
-                        TagsEntity tagsEntity = new TagsEntity();
-                        tagsEntity.setTitle(tag);
-                        return tagsEntity;
-                    })
-                    .collect(Collectors.toSet()));
+            Set<TagsEntity> tags = newsRequest.getTags().stream()
+                    .map(tagString -> tagsService.findByTitle(tagString))
+                    .collect(Collectors.toSet());
             news.setTags(tags);
             newsRepository.save(news);
-            return new BaseSuccessResponse();
+            return;
         }
         throw new CustomException(ServerErrorCodes.NEWS_NOT_FOUND);
     }
 
     @Transactional
-    public BaseSuccessResponse deleteNews(Long id) {
+    public void deleteNews(Long id) {
         UserEntity user = userService.getCurrentUser();
         NewsEntity news = newsRepository.getNewsById(id)
                 .orElseThrow(() -> new CustomException(ServerErrorCodes.NEWS_NOT_FOUND));
         if (user.getId().equals(news.getUser().getId())) {
             newsRepository.delete(news);
             tagsService.deleteTags();
-            return new BaseSuccessResponse();
         } else {
             throw new CustomException(ServerErrorCodes.NEWS_NOT_FOUND);
         }

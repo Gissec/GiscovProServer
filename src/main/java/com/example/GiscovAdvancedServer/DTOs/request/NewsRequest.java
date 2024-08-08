@@ -3,6 +3,7 @@ package com.example.GiscovAdvancedServer.DTOs.request;
 import com.example.GiscovAdvancedServer.constans.ValidationConstants;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import java.util.List;
@@ -16,6 +17,7 @@ public class NewsRequest {
 
     @Size(min = 3, max = 130, message = ValidationConstants.NEWS_IMAGE_LENGTH)
     @NotBlank(message = ValidationConstants.NEWS_IMAGE_HAS_TO_BE_PRESENT)
+    @Pattern(regexp = "^\\S+\\.(?:png|jpg|jpeg|gif)$", message = ValidationConstants.NEWS_IMAGE_HAS_TO_BE_PRESENT)
     private String image;
 
     @NotEmpty(message = ValidationConstants.TAGS_NOT_VALID)

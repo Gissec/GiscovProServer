@@ -1,7 +1,6 @@
 package com.example.GiscovAdvancedServer.repositories;
 
 import com.example.GiscovAdvancedServer.models.NewsEntity;
-import com.example.GiscovAdvancedServer.models.TagsEntity;
 import com.example.GiscovAdvancedServer.models.UserEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,7 +29,4 @@ public interface NewsRepository extends JpaRepository<NewsEntity, Long> {
     );
 
     Optional<NewsEntity> getNewsById(Long id);
-
-    @Query("SELECT n.tags FROM NewsEntity n WHERE n.id = :newsId")
-    List<TagsEntity> getTagsByNewsId(@Param("newsId") Long newsId);
 }

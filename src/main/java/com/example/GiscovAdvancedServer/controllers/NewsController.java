@@ -39,7 +39,7 @@ public class NewsController {
 
     @PostMapping
     public ResponseEntity<CreateNewsSuccessResponse> createNews(@Valid @RequestBody NewsRequest request) {
-        return ResponseEntity.ok(newsService.createNews(request));
+        return ResponseEntity.ok(new CreateNewsSuccessResponse(newsService.createNews(request)));
     }
 
     @GetMapping
@@ -47,11 +47,11 @@ public class NewsController {
                                    @Positive(message = ValidationConstants.TASKS_PAGE_GREATER_OR_EQUAL_1)
                                    @Max(value = 100, message = ValidationConstants.PAGE_SIZE_NOT_VALID)
                                    @NotNull(message = ValidationConstants.PARAM_PAGE_NOT_NULL) Integer page,
-                                                                                                     @RequestParam
+                                   @RequestParam
                                    @Positive(message = ValidationConstants.TASKS_PER_PAGE_GREATER_OR_EQUAL_1)
                                    @Max(value = 100, message = ValidationConstants.TASKS_PER_PAGE_LESS_OR_EQUAL_100)
                                    @NotNull(message = ValidationConstants.PARAM_PER_PAGE_NOT_NULL) Integer perPage) {
-        return ResponseEntity.ok(newsService.getNews(page, perPage));
+        return ResponseEntity.ok(new CustomSuccessResponse<>(newsService.getNews(page, perPage)));
     }
 
     @GetMapping("/user/{id}")
@@ -65,7 +65,8 @@ public class NewsController {
           @NotNull(message = ValidationConstants.PARAM_PER_PAGE_NOT_NULL) Integer perPage,
           @PathVariable
           @Pattern(regexp = Constants.REGULAR_UUID, message = ValidationConstants.MAX_UPLOAD_SIZE_EXCEEDED) String id) {
-        return ResponseEntity.ok(newsService.getUserNews(page, perPage, UUID.fromString(id)));
+        return ResponseEntity.ok(new CustomSuccessResponse<>(
+                newsService.getUserNews(page, perPage, UUID.fromString(id))));
     }
 
     @GetMapping("/find")
@@ -86,14 +87,16 @@ public class NewsController {
 
     @PutMapping("/{id}")
     public ResponseEntity<BaseSuccessResponse> putNews(@PathVariable
-                                                       @Positive(message = ValidationConstants.ID_MUST_BE_POSITIVE)Long id,
-                                                       @Valid @RequestBody NewsRequest request) {
-        return ResponseEntity.ok(newsService.putNews(id, request));
+                                           @Positive(message = ValidationConstants.ID_MUST_BE_POSITIVE)Long id,
+                                           @Valid @RequestBody NewsRequest request) {
+        newsService.putNews(id, request);
+        return ResponseEntity.ok(new BaseSuccessResponse());
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<BaseSuccessResponse> deleteNews(@PathVariable
-                                                          @Positive(message = ValidationConstants.ID_MUST_BE_POSITIVE)Long id) {
-        return ResponseEntity.ok(newsService.deleteNews(id));
+                                          @Positive(message = ValidationConstants.ID_MUST_BE_POSITIVE)Long id) {
+        newsService.deleteNews(id);
+        return ResponseEntity.ok(new BaseSuccessResponse());
     }
 }
