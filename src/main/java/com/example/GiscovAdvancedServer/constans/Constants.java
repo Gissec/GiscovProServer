@@ -19,4 +19,10 @@ public interface Constants {
     String MULTIPART = "multipart/form-data";
 
     String PATH_FILE = "/file/";
+
+    String NAME_ERROR = "Name error";
+
+    String ANONIMUS = "Anonymous";
+
+    String NO_ERROR = "-";
 }

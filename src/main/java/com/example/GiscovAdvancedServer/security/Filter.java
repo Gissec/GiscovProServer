@@ -33,7 +33,7 @@ public class Filter extends OncePerRequestFilter {
             String token = authHeader.substring(7);
             if (jwtService.isTokenValid(token)) {
                 String username = jwtService.getIdFromToken(token);
-                UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
+                CustomUserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

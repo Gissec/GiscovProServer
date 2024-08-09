@@ -1,8 +1,10 @@
 package com.example.GiscovAdvancedServer.error;
 
+import com.example.GiscovAdvancedServer.constans.Constants;
 import com.example.GiscovAdvancedServer.constans.ServerErrorCodes;
 import com.example.GiscovAdvancedServer.DTOs.response.BaseSuccessResponse;
 import com.example.GiscovAdvancedServer.DTOs.response.CustomSuccessResponse;
+import com.example.GiscovAdvancedServer.constans.ValidationConstants;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,15 +22,18 @@ public class controllerAdvice {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     ResponseEntity<CustomSuccessResponse> handle(HttpMessageNotReadableException e) {
-        return ResponseEntity.badRequest().body(
-                new CustomSuccessResponse(ServerErrorCodes.HTTP_MESSAGE_NOT_READABLE_EXCEPTION.getCode(),
+        return ResponseEntity.badRequest()
+                .header(Constants.NAME_ERROR, ValidationConstants.HTTP_MESSAGE_NOT_READABLE_EXCEPTION)
+                .body(new CustomSuccessResponse(ServerErrorCodes.HTTP_MESSAGE_NOT_READABLE_EXCEPTION.getCode(),
                         List.of(ServerErrorCodes.HTTP_MESSAGE_NOT_READABLE_EXCEPTION.getCode())));
     }
 
     @ExceptionHandler(CustomException.class)
     ResponseEntity<CustomSuccessResponse> handle(CustomException e){
         Integer code = e.getError().getCode();
-        return ResponseEntity.badRequest().body(new CustomSuccessResponse<>(code,List.of(code)));
+        return ResponseEntity.badRequest()
+                .header(Constants.NAME_ERROR,e.getError().getMassage())
+                .body(new CustomSuccessResponse<>(code,List.of(code)));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -37,6 +42,7 @@ public class controllerAdvice {
                 .map(objectError -> ServerErrorCodes.mapError.get(objectError.getDefaultMessage()))
                 .toList();
         return ResponseEntity.badRequest()
+                .header(Constants.NAME_ERROR,ServerErrorCodes.values()[a.get(0)].getMassage())
                 .body(new CustomSuccessResponse<>(a.get(0), a));
     }
 
@@ -46,6 +52,7 @@ public class controllerAdvice {
                 .map(objectError -> ServerErrorCodes.mapError.get(objectError.getMessage()))
                 .toList();
         return ResponseEntity.badRequest()
+                .header(Constants.NAME_ERROR,ServerErrorCodes.values()[a.get(0)].getMassage())
                 .body(new CustomSuccessResponse<>(a.get(0), a));
     }
 
@@ -53,6 +60,7 @@ public class controllerAdvice {
     public ResponseEntity<BaseSuccessResponse> handleMissingPathVariableException(MissingPathVariableException ex) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
+                .header(Constants.NAME_ERROR,ValidationConstants.UNKNOWN)
                 .body(new BaseSuccessResponse(ServerErrorCodes.UNKNOWN.getCode()));
     }
 
@@ -60,11 +68,14 @@ public class controllerAdvice {
     public ResponseEntity<BaseSuccessResponse> handleNoResourceFoundException(NoResourceFoundException ex) {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
+                .header(Constants.NAME_ERROR,ValidationConstants.UNKNOWN)
                 .body(new BaseSuccessResponse(ServerErrorCodes.UNKNOWN.getCode()));
     }
 
     @ExceptionHandler(MultipartException.class)
     public ResponseEntity<BaseSuccessResponse> handlerMultipartException(MultipartException ex) {
-        return ResponseEntity.badRequest().body(new BaseSuccessResponse(ServerErrorCodes.UNKNOWN.getCode()));
+        return ResponseEntity.badRequest()
+                .header(Constants.NAME_ERROR,ValidationConstants.UNKNOWN)
+                .body(new BaseSuccessResponse(ServerErrorCodes.UNKNOWN.getCode()));
     }
 }
