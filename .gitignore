@@ -28,6 +28,7 @@ out/
 src/main/resources/application.properties
 amplicode.xml
 
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
@@ -37,3 +38,4 @@ amplicode.xml
 
 ### VS Code ###
 .vscode/
+/src/main/java/com/example/GiscovAdvancedServer/storage/

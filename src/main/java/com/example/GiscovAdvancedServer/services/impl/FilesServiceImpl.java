@@ -20,7 +20,7 @@ public class FilesServiceImpl implements FilesService {
     @Value("${storage.dir}")
     private String dir;
 
-    private  Path fileStorageLocation;
+    private  Path fileStorageLocation = Paths.get(dir);;
 
     public String uploadFile(MultipartFile file) {
         if (file.isEmpty()) {
@@ -58,7 +58,8 @@ public class FilesServiceImpl implements FilesService {
     }
 
     private void createStorageDirectory() {
-        if (!Files.exists(fileStorageLocation)) {
+        fileStorageLocation = Paths.get(dir);
+        if (!fileStorageLocation.toFile().exists()) {
             try {
                 Files.createDirectories(fileStorageLocation);
             } catch (IOException e) {
