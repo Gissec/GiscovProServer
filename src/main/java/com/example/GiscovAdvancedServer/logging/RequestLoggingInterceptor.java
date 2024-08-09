@@ -31,11 +31,13 @@ public class RequestLoggingInterceptor implements HandlerInterceptor {
         if (user != null) {
             log.setAuthorId(user.getName());
         } else {
-            log.setAuthorId(null);
+            log.setAuthorId(Constants.ANONIMUS);
         }
         String errorMessage = response.getHeader(Constants.NAME_ERROR);
         if (errorMessage != null) {
             log.setErrorMessage(errorMessage);
+        } else {
+            log.setErrorMessage(Constants.NO_ERROR);
         }
         requestLogRepository.save(log);
     }
