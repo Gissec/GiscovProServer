@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: V001
+      author: dunice (generated)
+      changes:
+        - sql:
+            sql: "CREATE SCHEMA IF NOT EXISTS news"

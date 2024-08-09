@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: 8
+      author: dunice (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_request_logs
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: uri
+                  type: VARCHAR(255)
+              - column:
+                  name: author_id
+                  type: VARCHAR(255)
+              - column:
+                  name: method
+                  type: VARCHAR(255)
+              - column:
+                  name: method_type
+                  type: VARCHAR(255)
+              - column:
+                  name: error_message
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: response_code
+                  type: INT
+              - column:
+                  name: timestamp
+                  type: DATETIME
+            schemaName: news
+            tableName: request_logs

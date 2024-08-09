@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 7
+      author: dunice (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: news_entity
+            baseTableSchemaName: news
+            constraintName: FK_NEWSENTITY_ON_USER
+            referencedColumnNames: id
+            referencedTableName: users
+            referencedTableSchemaName: news

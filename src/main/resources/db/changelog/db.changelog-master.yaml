@@ -1,2 +1,10 @@
 databaseChangeLog:
-  - include file: db/changelog/changeset/changelog-001-create-users-table.yaml
+  - include file: db/changelog/changeset/changelog-000-create-schema-news.yaml
+  - include file: db/changelog/changeset/changelog-001-create-tagsentity.yaml
+  - include file: db/changelog/changeset/changelog-002-create-newsentity.yaml
+  - include file: db/changelog/changeset/changelog-003-create-newstags.yaml
+  - include file: db/changelog/changeset/changelog-004-newstags-tagsentity.yaml
+  - include file: db/changelog/changeset/changelog-005-newstags-newsentity.yaml
+  - include file: db/changelog/changeset/changelog-006-create-users.yaml
+  - include file: db/changelog/changeset/changelog-007-newsentity-user.yaml
+  - include file: db/changelog/changeset/changelog-008-create-requestlogs.yaml

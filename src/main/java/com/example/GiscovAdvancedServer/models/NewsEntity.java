@@ -9,6 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +18,7 @@ import org.hibernate.annotations.FetchMode;
 import java.util.Set;
 
 @Entity
+@Table(schema = "news")
 @Getter
 @Setter
 @NoArgsConstructor
