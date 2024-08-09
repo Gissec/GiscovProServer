@@ -22,10 +22,16 @@ public class LogEntity {
     private Long id;
 
     private String uri;
+
     private String authorId;
+
     private String method;
+
     private String methodType;
+
     private String errorMessage;
+
     private int responseCode;
+
     private LocalDateTime timestamp;
 }
