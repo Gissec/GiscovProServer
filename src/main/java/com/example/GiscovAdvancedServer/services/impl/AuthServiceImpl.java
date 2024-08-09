@@ -43,7 +43,10 @@ public class AuthServiceImpl implements AuthService {
         UserEntity user = authUserRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new CustomException(ServerErrorCodes.USER_NOT_FOUND));
         if (passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            return userMapper.userEntityToLogin(user);
+            String token = jwtService.generateToken(user.getId().toString());
+            LoginUserResponse response = userMapper.userEntityToLogin(user);
+            response.setToken(token);
+            return response;
         } else {
             throw new CustomException(ServerErrorCodes.PASSWORD_NOT_VALID);
         }
