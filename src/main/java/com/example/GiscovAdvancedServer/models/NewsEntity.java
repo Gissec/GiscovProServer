@@ -38,7 +38,8 @@ public class NewsEntity {
     @JoinTable(
             name = "news_tags",
             joinColumns = @JoinColumn(name = "news_id"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id")
+            inverseJoinColumns = @JoinColumn(name = "tag_id"),
+            schema = "news"
     )
     @Fetch(FetchMode.JOIN)
     private Set<TagsEntity> tags;

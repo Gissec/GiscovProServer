@@ -20,7 +20,7 @@ public class FilesServiceImpl implements FilesService {
     @Value("${storage.dir}")
     private String dir;
 
-    private  Path fileStorageLocation = Paths.get(dir);;
+    private  Path fileStorageLocation;
 
     public String uploadFile(MultipartFile file) {
         if (file.isEmpty()) {

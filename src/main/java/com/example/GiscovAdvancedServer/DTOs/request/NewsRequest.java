@@ -15,7 +15,7 @@ public class NewsRequest {
     @NotBlank(message = ValidationConstants.NEWS_DESCRIPTION_HAS_TO_BE_PRESENT)
     private String description;
 
-    @Size(min = 3, max = 130, message = ValidationConstants.NEWS_IMAGE_LENGTH)
+    @Size(min = 3, max = 130, message = ValidationConstants.NEWS_IMAGE_HAS_TO_BE_PRESENT)
     @NotBlank(message = ValidationConstants.NEWS_IMAGE_HAS_TO_BE_PRESENT)
     @Pattern(regexp = "^\\S+\\.(?:png|jpg|jpeg|gif)$", message = ValidationConstants.NEWS_IMAGE_HAS_TO_BE_PRESENT)
     private String image;

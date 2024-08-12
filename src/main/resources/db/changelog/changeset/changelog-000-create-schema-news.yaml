@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: V001
+      id: 001-create-schema-news
       author: dunice (generated)
       changes:
         - sql:

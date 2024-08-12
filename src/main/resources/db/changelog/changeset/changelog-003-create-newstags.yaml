@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 3
+      id: 4
       author: dunice (generated)
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
@@ -22,3 +22,4 @@ databaseChangeLog:
                   type: BIGINT
             schemaName: news
             tableName: news_tags
+
