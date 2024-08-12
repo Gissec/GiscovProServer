@@ -101,7 +101,7 @@ public class NewsServiceImpl implements NewsService {
                 .orElseThrow(() -> new CustomException(ServerErrorCodes.NEWS_NOT_FOUND));
         if (user.getId().equals(news.getUser().getId())) {
             newsRepository.delete(news);
-            //tagsService.deleteTags();
+            tagsService.deleteTags();
         } else {
             throw new CustomException(ServerErrorCodes.NEWS_NOT_FOUND);
         }

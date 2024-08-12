@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "request_logs", schema = "news")
-//@Table(name = "request_logs")
 @Getter
 @Setter
 @NoArgsConstructor
