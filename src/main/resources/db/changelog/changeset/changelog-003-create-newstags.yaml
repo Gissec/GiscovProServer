@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: dunice (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_news_tags
+                  name: news_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_news_tags
+                  name: tag_id
+                  type: BIGINT
+            schemaName: news
+            tableName: news_tags
+

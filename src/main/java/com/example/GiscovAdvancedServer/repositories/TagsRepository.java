@@ -12,7 +12,7 @@ public interface TagsRepository extends JpaRepository<TagsEntity, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "DELETE FROM tags_entity WHERE id NOT IN (SELECT DISTINCT tag_id FROM news_tags)",
+    @Query(value = "DELETE FROM news.tags_entity WHERE id NOT IN (SELECT DISTINCT tag_id FROM news.news_tags)",
             nativeQuery = true)
     void deleteTags();
 

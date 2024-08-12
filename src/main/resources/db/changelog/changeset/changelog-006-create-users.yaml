@@ -1,24 +1,24 @@
 databaseChangeLog:
   - changeSet:
-      id: 001
-      author: Giscov
+      id: 7
+      author: dunice (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
         - createTable:
-            tableName: users
             columns:
               - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_users
                   name: id
                   type: UUID
-                  constraints:
-                    primaryKey: true
               - column:
                   name: avatar
                   type: VARCHAR(255)
               - column:
                   name: email
                   type: VARCHAR(255)
-                  constraints:
-                    nullable: false
               - column:
                   name: name
                   type: VARCHAR(255)
@@ -28,5 +28,5 @@ databaseChangeLog:
               - column:
                   name: password
                   type: VARCHAR(255)
-                  constraints:
-                    nullable: false
+            schemaName: news
+            tableName: users

@@ -18,7 +18,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users")
+@Table(name = "users",schema = "news")
 public class UserEntity {
         @Id
         @UuidGenerator

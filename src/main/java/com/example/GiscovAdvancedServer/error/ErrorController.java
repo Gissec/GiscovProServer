@@ -18,7 +18,7 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 import java.util.List;
 
 @ControllerAdvice
-public class controllerAdvice {
+public class ErrorController {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     ResponseEntity<CustomSuccessResponse> handle(HttpMessageNotReadableException e) {
