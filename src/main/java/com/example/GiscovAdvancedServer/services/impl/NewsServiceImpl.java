@@ -22,11 +22,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class NewsServiceImpl implements NewsService {
+
+    private final UsersService userService;
 
     private final NewsRepository newsRepository;
 
@@ -34,14 +35,10 @@ public class NewsServiceImpl implements NewsService {
 
     private final NewsMapper newsMapper;
 
-    private final UsersService userService;
-
     public Long createNews(NewsRequest request) {
         NewsEntity news = newsMapper.newsRequestToEntity(request);
         news.setUser(userService.getCurrentUser());
-        Set<TagsEntity> tags = request.getTags().stream()
-                        .map(tagString -> tagsService.findByTitle(tagString))
-                        .collect(Collectors.toSet());
+        Set<TagsEntity> tags = tagsService.findOrCreateTags(request.getTags());
         news.setTags(tags);
         newsRepository.save(news);
         return news.getId();
@@ -50,7 +47,6 @@ public class NewsServiceImpl implements NewsService {
     public PageableResponse<List<GetNewsOutResponse>> getNews(Integer page, Integer perPage) {
         Pageable pageable = PageRequest.of(page - 1, perPage);
         Page<NewsEntity> newsPage = newsRepository.findAll(pageable);
-        List<NewsEntity> test = newsPage.getContent();
         List<GetNewsOutResponse> news = newsPage.getContent().stream()
                 .map(newsMapper::newsEntityToGetNewsOutResponse).toList();
         return new PageableResponse<>(news, Long.valueOf(news.size()));
@@ -84,9 +80,7 @@ public class NewsServiceImpl implements NewsService {
             news = newsMapper.newsRequestToEntity(newsRequest);
             news.setUser(user);
             news.setId(id);
-            Set<TagsEntity> tags = newsRequest.getTags().stream()
-                    .map(tagString -> tagsService.findByTitle(tagString))
-                    .collect(Collectors.toSet());
+            Set<TagsEntity> tags = tagsService.findOrCreateTags(newsRequest.getTags());
             news.setTags(tags);
             newsRepository.save(news);
             return;

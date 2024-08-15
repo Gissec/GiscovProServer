@@ -7,10 +7,14 @@ import com.example.GiscovAdvancedServer.DTOs.response.PutUserResponse;
 import com.example.GiscovAdvancedServer.models.UserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
+    PutUserResponse userEntityToPutUserResponse(UserEntity userEntity);
+
     @Mapping(ignore = true, target = "id")
+    @Mapping(ignore = true, target = "password")
     UserEntity userDtoToUserEntity(RegisterUserRequest userDto);
 
     @Mapping(ignore = true, target = "token")
@@ -18,6 +22,6 @@ public interface UserMapper {
 
     PublicUserResponse userEntityToUser(UserEntity userEntity);
 
-    PutUserResponse userEntityToPutUserResponse(UserEntity userEntity);
+    List<PublicUserResponse> usersEntityToUserList(List<UserEntity> userEntity);
 }
 
