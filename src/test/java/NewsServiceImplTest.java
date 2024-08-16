@@ -13,20 +13,11 @@ import com.example.GiscovAdvancedServer.repositories.UserRepository;
 import com.example.GiscovAdvancedServer.services.TagsService;
 import com.example.GiscovAdvancedServer.services.UsersService;
 import com.example.GiscovAdvancedServer.services.impl.NewsServiceImpl;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import static org.mockito.ArgumentMatchers.any;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -41,6 +32,16 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class NewsServiceImplTest {
@@ -76,7 +77,6 @@ public class NewsServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        // Инициализация тестовых данных
         newsRequest = new NewsRequest();
         newsRequest.setDescription(Constants.TEST_DESCRIPTION);
         newsRequest.setImage(Constants.TEST_AVATAR);
@@ -231,7 +231,7 @@ public class NewsServiceImplTest {
     }
 
     @Test
-    void putNews_NewsNotFound1() {
+    void putNews_NewsNotFound_In_Database() {
         authorization();
         when(userService.getCurrentUser()).thenReturn(currentUser);
 
@@ -251,7 +251,7 @@ public class NewsServiceImplTest {
     }
 
     @Test
-    void putNews_NewsNotFound2() {
+    void putNews_NewsNotFound_In_User() {
         authorization();
         when(userService.getCurrentUser()).thenReturn(currentUser);
 
@@ -286,7 +286,7 @@ public class NewsServiceImplTest {
     }
 
     @Test
-    void deleteNews_NewsNotFound1() {
+    void deleteNews_NewsNotFound_In_Database() {
         authorization();
         when(userService.getCurrentUser()).thenReturn(currentUser);
 
@@ -299,7 +299,7 @@ public class NewsServiceImplTest {
     }
 
     @Test
-    void deleteNews_NewsNotFound2() {
+    void deleteNews_NewsNotFound_In_User() {
         authorization();
         when(userService.getCurrentUser()).thenReturn(currentUser);
 

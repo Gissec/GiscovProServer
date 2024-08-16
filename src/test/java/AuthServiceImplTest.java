@@ -9,18 +9,19 @@ import com.example.GiscovAdvancedServer.models.UserEntity;
 import com.example.GiscovAdvancedServer.repositories.AuthUserRepository;
 import com.example.GiscovAdvancedServer.security.JwtService;
 import com.example.GiscovAdvancedServer.services.impl.AuthServiceImpl;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Optional;
 import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class AuthServiceImplTest {
@@ -46,6 +47,10 @@ public class AuthServiceImplTest {
 
     private AuthRequest request2;
 
+    private LoginUserResponse response;
+
+    LoginUserResponse response2;
+
     @BeforeEach
     void setUp() {
         request1 = new RegisterUserRequest();
@@ -54,20 +59,19 @@ public class AuthServiceImplTest {
         request1.setAvatar(Constants.TEST_AVATAR);
         request1.setName(Constants.TEST_USER);
         request1.setRole(Constants.TEST_ROLE);
+
         request2 = new AuthRequest();
         request2.setEmail(Constants.TEST_EMAIL);
         request2.setPassword(Constants.TEST_PASSWORD);
+
         newUser = new UserEntity();
         newUser.setId(UUID.randomUUID());
         newUser.setEmail(request1.getEmail());
         newUser.setAvatar(request1.getAvatar());
         newUser.setRole(request1.getRole());
         newUser.setName(request1.getName());
-    }
 
-    @Test
-    void testRegistrationRequest_Success() {
-        LoginUserResponse response = new LoginUserResponse();
+        response = new LoginUserResponse();
         response.setToken(Constants.TEST_TOKEN);
         response.setRole(Constants.TEST_ROLE);
         response.setName(Constants.TEST_USER);
@@ -75,13 +79,16 @@ public class AuthServiceImplTest {
         response.setAvatar(Constants.TEST_AVATAR);
         response.setEmail(Constants.TEST_EMAIL);
 
-        LoginUserResponse response2 = new LoginUserResponse();
+        response2 = new LoginUserResponse();
         response2.setRole(Constants.TEST_ROLE);
         response2.setName(Constants.TEST_USER);
         response2.setId(newUser.getId());
         response2.setAvatar(Constants.TEST_AVATAR);
         response2.setEmail(Constants.TEST_EMAIL);
+    }
 
+    @Test
+    void testRegistrationRequest_Success() {
         when(authUserRepository.existsByEmail(request1.getEmail())).thenReturn(false);
         when(userMapper.userDtoToUserEntity(request1)).thenReturn(newUser);
         when(passwordEncoder.encode(request1.getPassword())).thenReturn(Constants.TEST_PASSWORD);
@@ -103,21 +110,6 @@ public class AuthServiceImplTest {
 
     @Test
     void testLoginRequest_Success() {
-        LoginUserResponse response = new LoginUserResponse();
-        response.setToken(Constants.TEST_TOKEN);
-        response.setRole(Constants.TEST_ROLE);
-        response.setName(Constants.TEST_USER);
-        response.setId(newUser.getId());
-        response.setAvatar(Constants.TEST_AVATAR);
-        response.setEmail(Constants.TEST_EMAIL);
-
-        LoginUserResponse response2 = new LoginUserResponse();
-        response2.setRole(Constants.TEST_ROLE);
-        response2.setName(Constants.TEST_USER);
-        response2.setId(newUser.getId());
-        response2.setAvatar(Constants.TEST_AVATAR);
-        response2.setEmail(Constants.TEST_EMAIL);
-
         when(authUserRepository.findByEmail(request2.getEmail())).thenReturn(Optional.of(newUser));
         when(passwordEncoder.matches(request2.getPassword(), newUser.getPassword())).thenReturn(true);
         when(jwtService.generateToken(newUser.getId().toString())).thenReturn(Constants.TEST_TOKEN);

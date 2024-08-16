@@ -4,10 +4,6 @@ import com.example.GiscovAdvancedServer.error.CustomException;
 import com.example.GiscovAdvancedServer.services.impl.FilesServiceImpl;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.junit.jupiter.api.AfterEach;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,6 +20,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
 public class FilesServiceImplTest {
@@ -43,6 +44,12 @@ public class FilesServiceImplTest {
 
         MockHttpServletRequest request = new MockHttpServletRequest();
         RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+    }
+
+    @AfterEach
+    void tearDown() throws IOException {
+        FileUtils.deleteDirectory(new File(testDir));
+        RequestContextHolder.resetRequestAttributes();
     }
 
     @Test
@@ -100,11 +107,5 @@ public class FilesServiceImplTest {
             filesService.downloadFile(nonExistentFilename);
         });
         assertEquals(ServerErrorCodes.EXCEPTION_HANDLER_NOT_PROVIDED, thrownException.getError());
-    }
-
-    @AfterEach
-    void tearDown() throws IOException {
-        FileUtils.deleteDirectory(new File(testDir));
-        RequestContextHolder.resetRequestAttributes();
     }
 }
