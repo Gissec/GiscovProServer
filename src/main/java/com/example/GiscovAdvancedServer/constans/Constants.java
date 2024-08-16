@@ -14,8 +14,6 @@ public interface Constants {
 
     String CONTENT_TYPE = "application/json";
 
-    String STORAGE_DIR = "src/main/java/com/example/GiscovAdvancedServer/storage";
-
     String MULTIPART = "multipart/form-data";
 
     String PATH_FILE = "/file/";

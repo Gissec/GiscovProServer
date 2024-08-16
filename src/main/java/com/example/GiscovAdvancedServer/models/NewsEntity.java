@@ -9,12 +9,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedAttributeNode;
+import jakarta.persistence.NamedEntityGraph;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import java.util.Set;
 
 @Entity
@@ -22,6 +22,13 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@NamedEntityGraph(
+        name = "NewsEntity.full",
+        attributeNodes = {
+                @NamedAttributeNode(value = "user"),
+                @NamedAttributeNode(value = "tags")
+        }
+)
 public class NewsEntity {
 
     @Id
@@ -41,7 +48,6 @@ public class NewsEntity {
             inverseJoinColumns = @JoinColumn(name = "tag_id"),
             schema = "news"
     )
-    @Fetch(FetchMode.JOIN)
     private Set<TagsEntity> tags;
 
     @ManyToOne

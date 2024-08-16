@@ -10,6 +10,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
+
     @Mapping(ignore = true, target = "id")
     @Mapping(ignore = true, target = "password")
     UserEntity userDtoToUserEntity(RegisterUserRequest userDto);

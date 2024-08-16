@@ -6,6 +6,7 @@ import java.util.UUID;
 
 @Data
 public class GetNewsOutResponse {
+
     private String description;
 
     private Long id;

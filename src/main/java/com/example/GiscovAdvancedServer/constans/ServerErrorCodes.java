@@ -8,6 +8,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Getter
 public enum ServerErrorCodes {
+
     UNKNOWN(0, "unknown"),
     USERNAME_SIZE_NOT_VALID(1, ValidationConstants.USERNAME_SIZE_NOT_VALID),
     ROLE_SIZE_NOT_VALID(2, "role size not valid"),

@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface NewsMapper {
+
     @Mapping(ignore = true, target = "id")
     @Mapping(ignore = true, target = "tags")
     NewsEntity newsRequestToEntity(NewsRequest newsRequest);
