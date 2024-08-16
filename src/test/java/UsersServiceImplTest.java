@@ -1,6 +1,5 @@
 import com.example.GiscovAdvancedServer.DTOs.request.PutUserRequest;
 import com.example.GiscovAdvancedServer.DTOs.response.PublicUserResponse;
-import com.example.GiscovAdvancedServer.DTOs.response.PutUserResponse;
 import com.example.GiscovAdvancedServer.constans.Constants;
 import com.example.GiscovAdvancedServer.constans.ServerErrorCodes;
 import com.example.GiscovAdvancedServer.error.CustomException;
@@ -132,13 +131,13 @@ public class UsersServiceImplTest {
         authorization();
         when(userRepository.findById(listUsers.get(0).getId())).thenReturn(Optional.of(listUsers.get(0)));
         when(userRepository.existsByEmail(putUserRequest.getEmail())).thenReturn(false);
-        PutUserResponse putUserResponse = new PutUserResponse();
+        PublicUserResponse putUserResponse = new PublicUserResponse();
         putUserResponse.setAvatar(putUserRequest.getAvatar());
         putUserResponse.setEmail(putUserRequest.getEmail());
         putUserResponse.setId(listUsers.get(0).getId());
         putUserResponse.setRole(putUserRequest.getRole());
         putUserResponse.setName(putUserRequest.getName());
-        when(userMapper.userEntityToPutUserResponse(listUsers.get(0))).thenReturn(putUserResponse);
+        when(userMapper.userEntityToUser(listUsers.get(0))).thenReturn(putUserResponse);
 
         assertEquals(putUserResponse, usersService.replaceUser(putUserRequest));
     }

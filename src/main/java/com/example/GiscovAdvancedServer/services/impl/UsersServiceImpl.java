@@ -2,7 +2,6 @@ package com.example.GiscovAdvancedServer.services.impl;
 
 import com.example.GiscovAdvancedServer.DTOs.request.PutUserRequest;
 import com.example.GiscovAdvancedServer.DTOs.response.PublicUserResponse;
-import com.example.GiscovAdvancedServer.DTOs.response.PutUserResponse;
 import com.example.GiscovAdvancedServer.constans.ServerErrorCodes;
 import com.example.GiscovAdvancedServer.error.CustomException;
 import com.example.GiscovAdvancedServer.mappers.UserMapper;
@@ -45,7 +44,7 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Transactional
-    public PutUserResponse replaceUser(PutUserRequest putUserRequest) {
+    public PublicUserResponse replaceUser(PutUserRequest putUserRequest) {
         UserEntity user = getCurrentUser();
         if (!putUserRequest.getEmail().equals(user.getEmail())) {
             if (userRepository.existsByEmail(putUserRequest.getEmail())) {
@@ -56,7 +55,7 @@ public class UsersServiceImpl implements UsersService {
         user.setEmail(putUserRequest.getEmail());
         user.setRole(putUserRequest.getRole());
         user.setName(putUserRequest.getName());
-        return userMapper.userEntityToPutUserResponse(user);
+        return userMapper.userEntityToUser(user);
     }
 
     @Transactional

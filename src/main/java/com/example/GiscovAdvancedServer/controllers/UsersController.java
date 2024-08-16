@@ -4,7 +4,6 @@ import com.example.GiscovAdvancedServer.DTOs.request.PutUserRequest;
 import com.example.GiscovAdvancedServer.DTOs.response.BaseSuccessResponse;
 import com.example.GiscovAdvancedServer.DTOs.response.CustomSuccessResponse;
 import com.example.GiscovAdvancedServer.DTOs.response.PublicUserResponse;
-import com.example.GiscovAdvancedServer.DTOs.response.PutUserResponse;
 import com.example.GiscovAdvancedServer.constans.Constants;
 import com.example.GiscovAdvancedServer.constans.ValidationConstants;
 import com.example.GiscovAdvancedServer.services.UsersService;
@@ -50,7 +49,7 @@ public class UsersController {
     }
 
     @PutMapping()
-    public ResponseEntity<CustomSuccessResponse<PutUserResponse>> replaceUser(@Valid
+    public ResponseEntity<CustomSuccessResponse<PublicUserResponse>> replaceUser(@Valid
                                                                               @RequestBody PutUserRequest request) {
         return ResponseEntity.ok(new CustomSuccessResponse<>(usersService.replaceUser(request)));
     }
