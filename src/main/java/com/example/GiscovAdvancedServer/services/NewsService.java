@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface NewsService {
+
     Long createNews(NewsRequest request);
 
     PageableResponse<List<GetNewsOutResponse>> getNews(Integer page, Integer perPage);

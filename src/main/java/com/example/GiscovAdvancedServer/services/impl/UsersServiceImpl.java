@@ -2,17 +2,14 @@ package com.example.GiscovAdvancedServer.services.impl;
 
 import com.example.GiscovAdvancedServer.DTOs.request.PutUserRequest;
 import com.example.GiscovAdvancedServer.DTOs.response.PublicUserResponse;
-import com.example.GiscovAdvancedServer.DTOs.response.PutUserResponse;
 import com.example.GiscovAdvancedServer.constans.ServerErrorCodes;
 import com.example.GiscovAdvancedServer.error.CustomException;
-import com.example.GiscovAdvancedServer.security.CustomUserDetails;
 import com.example.GiscovAdvancedServer.mappers.UserMapper;
 import com.example.GiscovAdvancedServer.models.UserEntity;
 import com.example.GiscovAdvancedServer.repositories.UserRepository;
 import com.example.GiscovAdvancedServer.services.TagsService;
 import com.example.GiscovAdvancedServer.services.UsersService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,8 +28,7 @@ public class UsersServiceImpl implements UsersService {
 
     public List<PublicUserResponse> getAllUsers() {
         List<UserEntity> users = userRepository.findAll();
-        return users.stream().parallel().
-                map(user -> userMapper.userEntityToUser(user)).toList();
+        return userMapper.usersEntityToUserList(users);
     }
 
     public PublicUserResponse getUserInfoById(UUID id) {
@@ -42,11 +38,13 @@ public class UsersServiceImpl implements UsersService {
     }
 
     public PublicUserResponse getUserInfo() {
-        return userMapper.userEntityToUser(getCurrentUser());
+        UserEntity user = getCurrentUser();
+        PublicUserResponse userResponse = userMapper.userEntityToUser(user);
+        return userResponse;
     }
 
     @Transactional
-    public PutUserResponse replaceUser(PutUserRequest putUserRequest) {
+    public PublicUserResponse replaceUser(PutUserRequest putUserRequest) {
         UserEntity user = getCurrentUser();
         if (!putUserRequest.getEmail().equals(user.getEmail())) {
             if (userRepository.existsByEmail(putUserRequest.getEmail())) {
@@ -57,7 +55,7 @@ public class UsersServiceImpl implements UsersService {
         user.setEmail(putUserRequest.getEmail());
         user.setRole(putUserRequest.getRole());
         user.setName(putUserRequest.getName());
-        return userMapper.userEntityToPutUserResponse(user);
+        return userMapper.userEntityToUser(user);
     }
 
     @Transactional
@@ -67,9 +65,13 @@ public class UsersServiceImpl implements UsersService {
     }
 
     public UserEntity getCurrentUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return userRepository.findById(((CustomUserDetails) authentication.getPrincipal()).getUserid())
+        String id = SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getName();
+        UserEntity user = userRepository.findById(UUID.fromString(id))
                 .orElseThrow(() -> new CustomException(ServerErrorCodes.USER_NOT_FOUND));
+        return user;
     }
 
     public UserEntity getUserById(UUID id) {

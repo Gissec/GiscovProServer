@@ -20,6 +20,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Table(name = "users",schema = "news")
 public class UserEntity {
+
         @Id
         @UuidGenerator
         private UUID id;

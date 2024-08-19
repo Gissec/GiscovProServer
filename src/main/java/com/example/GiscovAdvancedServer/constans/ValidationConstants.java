@@ -1,6 +1,7 @@
 package com.example.GiscovAdvancedServer.constans;
 
 public interface ValidationConstants {
+
     String USERNAME_SIZE_NOT_VALID = "Username size should be between 3 and 25";
 
     String NEWS_DESCRIPTION_SIZE_NOT_VALID = "News description size should be between 3 and 130";

@@ -1,0 +1,15 @@
+spring.profiles.active=
+spring.application.name=
+spring.datasource.url=
+spring.datasource.username=
+spring.datasource.password=
+token.signing.key=
+spring.datasource.driver-class-name=
+spring.jpa.database-platform=
+spring.jpa.hibernate.ddl-auto=
+token.expiration.time=
+spring.liquibase.change-log=
+#spring.liquibase.default-schema=
+server.servlet.context-path=
+storage.dir=
+spring.jpa.show-sql=

@@ -5,6 +5,7 @@ import com.example.GiscovAdvancedServer.DTOs.request.RegisterUserRequest;
 import com.example.GiscovAdvancedServer.DTOs.response.LoginUserResponse;
 
 public interface AuthService {
+
     LoginUserResponse registrationRequest(RegisterUserRequest request);
 
     LoginUserResponse loginRequest(AuthRequest request);

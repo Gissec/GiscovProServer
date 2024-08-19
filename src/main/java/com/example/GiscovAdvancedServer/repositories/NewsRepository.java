@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface NewsRepository extends JpaRepository<NewsEntity, Long> {
+
     @EntityGraph(attributePaths = {"user", "tags"})
     Page<NewsEntity> findByUser(UserEntity user, Pageable pageable);
 
@@ -21,6 +22,7 @@ public interface NewsRepository extends JpaRepository<NewsEntity, Long> {
             "WHERE (:author IS NULL OR n.user.name ILIKE %:author%) " +
             "AND (:keywords IS NULL OR n.description ILIKE %:keywords%) " +
             "AND (:tags IS NULL OR t.title IN :tags)")
+    @EntityGraph(value = "NewsEntity.full", type = EntityGraph.EntityGraphType.FETCH)
     Page<NewsEntity> findAllByAuthorAndKeywordsAndTags(
             @Param("author") String author,
             @Param("keywords") String keywords,
