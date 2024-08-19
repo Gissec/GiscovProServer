@@ -12,8 +12,8 @@ databaseChangeLog:
   - include:
       file: db/changelog/changeset/changelog-005-newstags-newsentity.yaml
   - include:
-      file: db/changelog/changeset/changelog-006-create-users.yaml
+      file: db/changelog/changeset/changelog-006-create-usersentity.yaml
   - include:
-      file: db/changelog/changeset/changelog-007-newsentity-user.yaml
+      file: db/changelog/changeset/changelog-007-newsentity-userentity.yaml
   - include:
       file: db/changelog/changeset/changelog-008-create-requestlogs.yaml

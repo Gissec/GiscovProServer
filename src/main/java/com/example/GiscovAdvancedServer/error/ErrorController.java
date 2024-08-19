@@ -2,8 +2,8 @@ package com.example.GiscovAdvancedServer.error;
 
 import com.example.GiscovAdvancedServer.constans.Constants;
 import com.example.GiscovAdvancedServer.constans.ServerErrorCodes;
-import com.example.GiscovAdvancedServer.DTOs.response.BaseSuccessResponse;
-import com.example.GiscovAdvancedServer.DTOs.response.CustomSuccessResponse;
+import com.example.GiscovAdvancedServer.DTOs.response.common_responce.BaseSuccessResponse;
+import com.example.GiscovAdvancedServer.DTOs.response.common_responce.CustomSuccessResponse;
 import com.example.GiscovAdvancedServer.constans.ValidationConstants;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
@@ -38,22 +38,22 @@ public class ErrorController {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     ResponseEntity<CustomSuccessResponse> handle(MethodArgumentNotValidException e){
-        List<Integer> a = e.getBindingResult().getAllErrors().stream()
+        List<Integer> codes = e.getBindingResult().getAllErrors().stream()
                 .map(objectError -> ServerErrorCodes.mapError.get(objectError.getDefaultMessage()))
                 .toList();
         return ResponseEntity.badRequest()
-                .header(Constants.NAME_ERROR,ServerErrorCodes.values()[a.get(0)].getMassage())
-                .body(new CustomSuccessResponse<>(a.get(0), a));
+                .header(Constants.NAME_ERROR,ServerErrorCodes.values()[codes.get(0)].getMassage())
+                .body(new CustomSuccessResponse<>(codes.get(0), codes));
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     ResponseEntity<CustomSuccessResponse> handle(ConstraintViolationException e){
-        List<Integer> a = e.getConstraintViolations().stream()
+        List<Integer> codes = e.getConstraintViolations().stream()
                 .map(objectError -> ServerErrorCodes.mapError.get(objectError.getMessage()))
                 .toList();
         return ResponseEntity.badRequest()
-                .header(Constants.NAME_ERROR,ServerErrorCodes.values()[a.get(0)].getMassage())
-                .body(new CustomSuccessResponse<>(a.get(0), a));
+                .header(Constants.NAME_ERROR,ServerErrorCodes.values()[codes.get(0)].getMassage())
+                .body(new CustomSuccessResponse<>(codes.get(0), codes));
     }
 
     @ExceptionHandler(MissingPathVariableException.class)

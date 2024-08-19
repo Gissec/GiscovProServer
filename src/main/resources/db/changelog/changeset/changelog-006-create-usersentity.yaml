@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 7
-      author: dunice (generated)
+      author: dunice
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
         - createTable:
@@ -29,4 +29,4 @@ databaseChangeLog:
                   name: password
                   type: VARCHAR(255)
             schemaName: news
-            tableName: users
+            tableName: users_entity

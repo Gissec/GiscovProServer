@@ -1,6 +1,6 @@
 import com.example.GiscovAdvancedServer.DTOs.request.PutUserRequest;
-import com.example.GiscovAdvancedServer.DTOs.response.PublicUserResponse;
-import com.example.GiscovAdvancedServer.constans.Constants;
+import com.example.GiscovAdvancedServer.DTOs.response.response.PublicUserResponse;
+import com.example.GiscovAdvancedServer.constans.ConstantsTest;
 import com.example.GiscovAdvancedServer.constans.ServerErrorCodes;
 import com.example.GiscovAdvancedServer.error.CustomException;
 import com.example.GiscovAdvancedServer.mappers.UserMapper;
@@ -58,17 +58,17 @@ public class UsersServiceImplTest {
     void setUp() {
         UserEntity user1 = new UserEntity();
         user1.setId(UUID.randomUUID());
-        user1.setEmail(Constants.TEST_EMAIL);
-        user1.setAvatar(Constants.TEST_AVATAR);
-        user1.setRole(Constants.TEST_ROLE);
-        user1.setName(Constants.TEST_USER);
+        user1.setEmail(ConstantsTest.TEST_EMAIL);
+        user1.setAvatar(ConstantsTest.TEST_AVATAR);
+        user1.setRole(ConstantsTest.TEST_ROLE);
+        user1.setName(ConstantsTest.TEST_USER);
 
         UserEntity user2 = new UserEntity();
         user2.setId(UUID.randomUUID());
-        user2.setEmail(Constants.TEST_EMAIL2);
-        user2.setAvatar(Constants.TEST_AVATAR);
-        user2.setRole(Constants.TEST_ROLE);
-        user2.setName(Constants.TEST_USER2);
+        user2.setEmail(ConstantsTest.TEST_EMAIL2);
+        user2.setAvatar(ConstantsTest.TEST_AVATAR);
+        user2.setRole(ConstantsTest.TEST_ROLE);
+        user2.setName(ConstantsTest.TEST_USER2);
 
         listUsers = List.of(user1, user2);
         PublicUserResponse publicUser1 = new PublicUserResponse();

@@ -1,7 +1,7 @@
 import com.example.GiscovAdvancedServer.DTOs.request.NewsRequest;
-import com.example.GiscovAdvancedServer.DTOs.response.GetNewsOutResponse;
-import com.example.GiscovAdvancedServer.DTOs.response.PageableResponse;
-import com.example.GiscovAdvancedServer.constans.Constants;
+import com.example.GiscovAdvancedServer.DTOs.response.response.GetNewsOutResponse;
+import com.example.GiscovAdvancedServer.DTOs.response.response.PageableResponse;
+import com.example.GiscovAdvancedServer.constans.ConstantsTest;
 import com.example.GiscovAdvancedServer.constans.ServerErrorCodes;
 import com.example.GiscovAdvancedServer.error.CustomException;
 import com.example.GiscovAdvancedServer.mappers.NewsMapper;
@@ -78,21 +78,21 @@ public class NewsServiceImplTest {
     @BeforeEach
     void setUp() {
         newsRequest = new NewsRequest();
-        newsRequest.setDescription(Constants.TEST_DESCRIPTION);
-        newsRequest.setImage(Constants.TEST_AVATAR);
-        newsRequest.setTitle(Constants.TEST_TITLE);
-        newsRequest.setTags(List.of(Constants.TEST_TAG1, Constants.TEST_TAG2));
+        newsRequest.setDescription(ConstantsTest.TEST_DESCRIPTION);
+        newsRequest.setImage(ConstantsTest.TEST_AVATAR);
+        newsRequest.setTitle(ConstantsTest.TEST_TITLE);
+        newsRequest.setTags(List.of(ConstantsTest.TEST_TAG1, ConstantsTest.TEST_TAG2));
 
         currentUser = new UserEntity();
-        currentUser.setId(UUID.fromString(Constants.TEST_UUID1));
-        currentUser.setEmail(Constants.TEST_EMAIL);
-        currentUser.setName(Constants.TEST_USER);
-        currentUser.setPassword(Constants.TEST_PASSWORD);
+        currentUser.setId(UUID.fromString(ConstantsTest.TEST_UUID1));
+        currentUser.setEmail(ConstantsTest.TEST_EMAIL);
+        currentUser.setName(ConstantsTest.TEST_USER);
+        currentUser.setPassword(ConstantsTest.TEST_PASSWORD);
 
         TagsEntity tag1 = new TagsEntity();
-        tag1.setTitle(Constants.TEST_TAG1);
+        tag1.setTitle(ConstantsTest.TEST_TAG1);
         TagsEntity tag2 = new TagsEntity();
-        tag2.setTitle(Constants.TEST_TAG2);
+        tag2.setTitle(ConstantsTest.TEST_TAG2);
 
         tagsEntities = new HashSet<>(Set.of(tag1, tag2));
 
@@ -179,9 +179,9 @@ public class NewsServiceImplTest {
 
     @Test
     void findNews_Success() {
-        String author = Constants.TEST_USER;
-        String keywords = Constants.TEST_DESCRIPTION;
-        List<String> tags = List.of(Constants.TEST_TAG1, Constants.TEST_TAG2);
+        String author = ConstantsTest.TEST_USER;
+        String keywords = ConstantsTest.TEST_DESCRIPTION;
+        List<String> tags = List.of(ConstantsTest.TEST_TAG1, ConstantsTest.TEST_TAG2);
         int page = 1;
         int perPage = 2;
 
@@ -207,9 +207,9 @@ public class NewsServiceImplTest {
 
         NewsEntity oldNews = new NewsEntity();
         oldNews.setId(newsEntity.getId());
-        oldNews.setDescription(Constants.TEST_OLDDESCRIPTION);
-        oldNews.setImage(Constants.TEST_OLDAVATAR);
-        oldNews.setTitle(Constants.TEST_OLDTITLE);
+        oldNews.setDescription(ConstantsTest.TEST_OLDDESCRIPTION);
+        oldNews.setImage(ConstantsTest.TEST_OLDAVATAR);
+        oldNews.setTitle(ConstantsTest.TEST_OLDTITLE);
         oldNews.setUser(currentUser);
         oldNews.setTags(tagsEntities);
 
@@ -237,9 +237,9 @@ public class NewsServiceImplTest {
 
         NewsEntity oldNews = new NewsEntity();
         oldNews.setId(3L);
-        oldNews.setDescription(Constants.TEST_OLDDESCRIPTION);
-        oldNews.setImage(Constants.TEST_OLDAVATAR);
-        oldNews.setTitle(Constants.TEST_OLDTITLE);
+        oldNews.setDescription(ConstantsTest.TEST_OLDDESCRIPTION);
+        oldNews.setImage(ConstantsTest.TEST_OLDAVATAR);
+        oldNews.setTitle(ConstantsTest.TEST_OLDTITLE);
         oldNews.setUser(new UserEntity());
 
         when(newsRepository.getNewsById(oldNews.getId())).thenReturn(Optional.empty());
@@ -256,7 +256,7 @@ public class NewsServiceImplTest {
         when(userService.getCurrentUser()).thenReturn(currentUser);
 
         UserEntity anotherUser = new UserEntity();
-        anotherUser.setId(UUID.fromString(Constants.TEST_UUID2));
+        anotherUser.setId(UUID.fromString(ConstantsTest.TEST_UUID2));
         NewsEntity oldNews = new NewsEntity();
         oldNews.setId(3L);
         oldNews.setUser(anotherUser);
@@ -304,7 +304,7 @@ public class NewsServiceImplTest {
         when(userService.getCurrentUser()).thenReturn(currentUser);
 
         UserEntity anotherUser = new UserEntity();
-        anotherUser.setId(UUID.fromString(Constants.TEST_UUID2));
+        anotherUser.setId(UUID.fromString(ConstantsTest.TEST_UUID2));
         NewsEntity oldNews = new NewsEntity();
         oldNews.setId(3L);
         oldNews.setUser(anotherUser);

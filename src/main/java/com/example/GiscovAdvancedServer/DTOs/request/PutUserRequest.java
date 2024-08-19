@@ -1,8 +1,10 @@
 package com.example.GiscovAdvancedServer.DTOs.request;
 
+import com.example.GiscovAdvancedServer.constans.Constants;
 import com.example.GiscovAdvancedServer.constans.ValidationConstants;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -10,6 +12,7 @@ import lombok.Data;
 public class PutUserRequest {
 
     @NotBlank(message = ValidationConstants.USER_AVATAR_NOT_NULL)
+    @Pattern(regexp = Constants.REGEXP_IMAGE, message = ValidationConstants.USER_AVATAR_NOT_VALID)
     private String avatar;
 
     @Size(min = 3, max = 100, message = ValidationConstants.EMAIL_SIZE_NOT_VALID)

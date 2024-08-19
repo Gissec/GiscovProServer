@@ -1,8 +1,8 @@
 package com.example.GiscovAdvancedServer.services.impl;
 
 import com.example.GiscovAdvancedServer.DTOs.request.NewsRequest;
-import com.example.GiscovAdvancedServer.DTOs.response.GetNewsOutResponse;
-import com.example.GiscovAdvancedServer.DTOs.response.PageableResponse;
+import com.example.GiscovAdvancedServer.DTOs.response.response.GetNewsOutResponse;
+import com.example.GiscovAdvancedServer.DTOs.response.response.PageableResponse;
 import com.example.GiscovAdvancedServer.constans.ServerErrorCodes;
 import com.example.GiscovAdvancedServer.error.CustomException;
 import com.example.GiscovAdvancedServer.mappers.NewsMapper;
@@ -35,6 +35,7 @@ public class NewsServiceImpl implements NewsService {
 
     private final NewsMapper newsMapper;
 
+    @Transactional
     public Long createNews(NewsRequest request) {
         NewsEntity news = newsMapper.newsRequestToEntity(request);
         news.setUser(userService.getCurrentUser());

@@ -6,7 +6,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.LocalDateTime;
 
@@ -14,7 +13,6 @@ import java.time.LocalDateTime;
 @Table(name = "request_logs", schema = "news")
 @Getter
 @Setter
-@NoArgsConstructor
 public class LogEntity {
 
     @Id
@@ -31,7 +29,7 @@ public class LogEntity {
 
     private String errorMessage;
 
-    private int responseCode;
+    private Integer responseCode;
 
     private LocalDateTime timestamp;
 }

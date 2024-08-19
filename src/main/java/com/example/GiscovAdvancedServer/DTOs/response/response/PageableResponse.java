@@ -1,4 +1,4 @@
-package com.example.GiscovAdvancedServer.DTOs.response;
+package com.example.GiscovAdvancedServer.DTOs.response.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

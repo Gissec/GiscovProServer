@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 9
-      author: dunice (generated)
+      author: dunice
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
         - createTable:

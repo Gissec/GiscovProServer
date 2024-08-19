@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 6
-      author: dunice (generated)
+      author: dunice
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
         - addForeignKeyConstraint:

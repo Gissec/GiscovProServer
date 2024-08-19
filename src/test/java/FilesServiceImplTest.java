@@ -1,4 +1,4 @@
-import com.example.GiscovAdvancedServer.constans.Constants;
+import com.example.GiscovAdvancedServer.constans.ConstantsTest;
 import com.example.GiscovAdvancedServer.constans.ServerErrorCodes;
 import com.example.GiscovAdvancedServer.error.CustomException;
 import com.example.GiscovAdvancedServer.services.impl.FilesServiceImpl;
@@ -34,11 +34,11 @@ public class FilesServiceImplTest {
 
     private MultipartFile multipartFile;
 
-    private final String testDir = Constants.TEST_STORAGEDIR;
+    private final String testDir = ConstantsTest.TEST_STORAGEDIR;
 
     @BeforeEach
     void setUp() {
-        ReflectionTestUtils.setField(filesService, Constants.TEST_REALNAME_DIR, testDir);
+        ReflectionTestUtils.setField(filesService, ConstantsTest.TEST_REALNAME_DIR, testDir);
 
         new File(testDir).mkdirs();
 
@@ -54,10 +54,10 @@ public class FilesServiceImplTest {
 
     @Test
     void uploadFile_Success() {
-        String originalFileName = Constants.TEST_ORIGINAL_FILE_NAME;
-        String content = Constants.TEST_CONTENT;
+        String originalFileName = ConstantsTest.TEST_ORIGINAL_FILE_NAME;
+        String content = ConstantsTest.TEST_CONTENT;
         multipartFile = new MockMultipartFile(originalFileName, originalFileName,
-                Constants.TEST_CONTENT_TYPE, content.getBytes());
+                ConstantsTest.TEST_CONTENT_TYPE, content.getBytes());
 
         String fileDownloadUri = filesService.uploadFile(multipartFile);
 
@@ -70,10 +70,10 @@ public class FilesServiceImplTest {
 
     @Test
     void uploadFile_FileIsEmpty() {
-        String originalFileName = Constants.TEST_ORIGINAL_FILE_NAME;
-        String content = Constants.TEST_CONTENT;
+        String originalFileName = ConstantsTest.TEST_ORIGINAL_FILE_NAME;
+        String content = ConstantsTest.TEST_CONTENT;
         multipartFile = new MockMultipartFile(originalFileName, originalFileName,
-                Constants.TEST_CONTENT_TYPE, (byte[]) null);
+                ConstantsTest.TEST_CONTENT_TYPE, (byte[]) null);
 
         CustomException exception = assertThrows(CustomException.class, () ->
                 filesService.uploadFile(multipartFile));
@@ -83,8 +83,8 @@ public class FilesServiceImplTest {
 
     @Test
     void downloadFile_Success() throws IOException {
-        String filename = Constants.TEST_ORIGINAL_FILE_NAME;
-        String content = Constants.TEST_CONTENT;
+        String filename = ConstantsTest.TEST_ORIGINAL_FILE_NAME;
+        String content = ConstantsTest.TEST_CONTENT;
         File file = new File(testDir + File.separator + filename);
         Files.write(file.toPath(), content.getBytes());
 
@@ -101,7 +101,7 @@ public class FilesServiceImplTest {
 
     @Test
     void downloadFile_FileNotFound() {
-        String nonExistentFilename = Constants.TEST_ORIGINAL_FILE_NAME;
+        String nonExistentFilename = ConstantsTest.TEST_ORIGINAL_FILE_NAME;
 
         CustomException thrownException = assertThrows(CustomException.class, () -> {
             filesService.downloadFile(nonExistentFilename);

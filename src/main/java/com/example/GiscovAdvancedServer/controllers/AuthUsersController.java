@@ -2,8 +2,8 @@ package com.example.GiscovAdvancedServer.controllers;
 
 import com.example.GiscovAdvancedServer.DTOs.request.AuthRequest;
 import com.example.GiscovAdvancedServer.DTOs.request.RegisterUserRequest;
-import com.example.GiscovAdvancedServer.DTOs.response.CustomSuccessResponse;
-import com.example.GiscovAdvancedServer.DTOs.response.LoginUserResponse;
+import com.example.GiscovAdvancedServer.DTOs.response.common_responce.CustomSuccessResponse;
+import com.example.GiscovAdvancedServer.DTOs.response.response.LoginUserResponse;
 import com.example.GiscovAdvancedServer.services.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +32,7 @@ public class AuthUsersController {
 
     @PostMapping("/login")
     public ResponseEntity<CustomSuccessResponse<LoginUserResponse>> loginRequest(@RequestBody
-                                                                                 @Valid AuthRequest authRequest) {
+                                                                  @Valid AuthRequest authRequest) {
         return ResponseEntity.ok(new CustomSuccessResponse<>(authService.loginRequest(authRequest)));
     }
 }
