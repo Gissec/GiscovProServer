@@ -38,4 +38,4 @@ databaseChangeLog:
                   name: timestamp
                   type: DATETIME
             schemaName: news
-            tableName: request_logs
+            tableName: logs_entity

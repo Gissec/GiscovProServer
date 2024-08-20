@@ -1,8 +1,8 @@
 package com.example.GiscovAdvancedServer.mappers;
 
 import com.example.GiscovAdvancedServer.DTOs.request.RegisterUserRequest;
-import com.example.GiscovAdvancedServer.DTOs.response.response.LoginUserResponse;
-import com.example.GiscovAdvancedServer.DTOs.response.response.PublicUserResponse;
+import com.example.GiscovAdvancedServer.DTOs.response.LoginUserResponse;
+import com.example.GiscovAdvancedServer.DTOs.response.PublicUserResponse;
 import com.example.GiscovAdvancedServer.models.UserEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

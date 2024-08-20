@@ -1,6 +1,6 @@
 import com.example.GiscovAdvancedServer.DTOs.request.AuthRequest;
 import com.example.GiscovAdvancedServer.DTOs.request.RegisterUserRequest;
-import com.example.GiscovAdvancedServer.DTOs.response.response.LoginUserResponse;
+import com.example.GiscovAdvancedServer.DTOs.response.LoginUserResponse;
 import com.example.GiscovAdvancedServer.constans.ConstantsTest;
 import com.example.GiscovAdvancedServer.constans.ServerErrorCodes;
 import com.example.GiscovAdvancedServer.error.CustomException;

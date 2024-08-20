@@ -10,7 +10,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "request_logs", schema = "news")
+@Table(name = "logs_entity", schema = "news")
 @Getter
 @Setter
 public class LogEntity {
