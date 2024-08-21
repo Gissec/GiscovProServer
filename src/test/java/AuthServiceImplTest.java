@@ -1,7 +1,7 @@
 import com.example.GiscovAdvancedServer.DTOs.request.AuthRequest;
 import com.example.GiscovAdvancedServer.DTOs.request.RegisterUserRequest;
 import com.example.GiscovAdvancedServer.DTOs.response.LoginUserResponse;
-import com.example.GiscovAdvancedServer.constans.Constants;
+import com.example.GiscovAdvancedServer.constans.ConstantsTest;
 import com.example.GiscovAdvancedServer.constans.ServerErrorCodes;
 import com.example.GiscovAdvancedServer.error.CustomException;
 import com.example.GiscovAdvancedServer.mappers.UserMapper;
@@ -43,9 +43,9 @@ public class AuthServiceImplTest {
 
     private UserEntity newUser;
 
-    private RegisterUserRequest request1;
+    private RegisterUserRequest requestRegister;
 
-    private AuthRequest request2;
+    private AuthRequest requestAuth;
 
     private LoginUserResponse response;
 
@@ -53,86 +53,86 @@ public class AuthServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        request1 = new RegisterUserRequest();
-        request1.setEmail(Constants.TEST_EMAIL);
-        request1.setPassword(Constants.TEST_PASSWORD);
-        request1.setAvatar(Constants.TEST_AVATAR);
-        request1.setName(Constants.TEST_USER);
-        request1.setRole(Constants.TEST_ROLE);
+        requestRegister = new RegisterUserRequest();
+        requestRegister.setEmail(ConstantsTest.TEST_EMAIL);
+        requestRegister.setPassword(ConstantsTest.TEST_PASSWORD);
+        requestRegister.setAvatar(ConstantsTest.TEST_AVATAR);
+        requestRegister.setName(ConstantsTest.TEST_USER);
+        requestRegister.setRole(ConstantsTest.TEST_ROLE);
 
-        request2 = new AuthRequest();
-        request2.setEmail(Constants.TEST_EMAIL);
-        request2.setPassword(Constants.TEST_PASSWORD);
+        requestAuth = new AuthRequest();
+        requestAuth.setEmail(ConstantsTest.TEST_EMAIL);
+        requestAuth.setPassword(ConstantsTest.TEST_PASSWORD);
 
         newUser = new UserEntity();
         newUser.setId(UUID.randomUUID());
-        newUser.setEmail(request1.getEmail());
-        newUser.setAvatar(request1.getAvatar());
-        newUser.setRole(request1.getRole());
-        newUser.setName(request1.getName());
+        newUser.setEmail(requestRegister.getEmail());
+        newUser.setAvatar(requestRegister.getAvatar());
+        newUser.setRole(requestRegister.getRole());
+        newUser.setName(requestRegister.getName());
 
         response = new LoginUserResponse();
-        response.setToken(Constants.TEST_TOKEN);
-        response.setRole(Constants.TEST_ROLE);
-        response.setName(Constants.TEST_USER);
+        response.setToken(ConstantsTest.TEST_TOKEN);
+        response.setRole(ConstantsTest.TEST_ROLE);
+        response.setName(ConstantsTest.TEST_USER);
         response.setId(newUser.getId());
-        response.setAvatar(Constants.TEST_AVATAR);
-        response.setEmail(Constants.TEST_EMAIL);
+        response.setAvatar(ConstantsTest.TEST_AVATAR);
+        response.setEmail(ConstantsTest.TEST_EMAIL);
 
         response2 = new LoginUserResponse();
-        response2.setRole(Constants.TEST_ROLE);
-        response2.setName(Constants.TEST_USER);
+        response2.setRole(ConstantsTest.TEST_ROLE);
+        response2.setName(ConstantsTest.TEST_USER);
         response2.setId(newUser.getId());
-        response2.setAvatar(Constants.TEST_AVATAR);
-        response2.setEmail(Constants.TEST_EMAIL);
+        response2.setAvatar(ConstantsTest.TEST_AVATAR);
+        response2.setEmail(ConstantsTest.TEST_EMAIL);
     }
 
     @Test
     void testRegistrationRequest_Success() {
-        when(authUserRepository.existsByEmail(request1.getEmail())).thenReturn(false);
-        when(userMapper.userDtoToUserEntity(request1)).thenReturn(newUser);
-        when(passwordEncoder.encode(request1.getPassword())).thenReturn(Constants.TEST_PASSWORD);
-        when(jwtService.generateToken(newUser.getId().toString())).thenReturn(Constants.TEST_TOKEN);
+        when(authUserRepository.existsByEmail(requestRegister.getEmail())).thenReturn(false);
+        when(userMapper.userDtoToUserEntity(requestRegister)).thenReturn(newUser);
+        when(passwordEncoder.encode(requestRegister.getPassword())).thenReturn(ConstantsTest.TEST_PASSWORD);
+        when(jwtService.generateToken(newUser.getId().toString())).thenReturn(ConstantsTest.TEST_TOKEN);
         when(userMapper.userEntityToLogin(newUser)).thenReturn(response2);
 
-        assertEquals(response, authService.registrationRequest(request1));
+        assertEquals(response, authService.registrationRequest(requestRegister));
     }
 
     @Test
     void testRegistrationRequest_UserAlreadyExists() {
-        when(authUserRepository.existsByEmail(request1.getEmail())).thenReturn(true);
+        when(authUserRepository.existsByEmail(requestRegister.getEmail())).thenReturn(true);
 
         CustomException exception = assertThrows(CustomException.class, () ->
-                authService.registrationRequest(request1));
+                authService.registrationRequest(requestRegister));
 
         assertEquals(ServerErrorCodes.USER_ALREADY_EXISTS, exception.getError());
     }
 
     @Test
     void testLoginRequest_Success() {
-        when(authUserRepository.findByEmail(request2.getEmail())).thenReturn(Optional.of(newUser));
-        when(passwordEncoder.matches(request2.getPassword(), newUser.getPassword())).thenReturn(true);
-        when(jwtService.generateToken(newUser.getId().toString())).thenReturn(Constants.TEST_TOKEN);
+        when(authUserRepository.findByEmail(requestAuth.getEmail())).thenReturn(Optional.of(newUser));
+        when(passwordEncoder.matches(requestAuth.getPassword(), newUser.getPassword())).thenReturn(true);
+        when(jwtService.generateToken(newUser.getId().toString())).thenReturn(ConstantsTest.TEST_TOKEN);
         when(userMapper.userEntityToLogin(newUser)).thenReturn(response2);
 
-        assertEquals(response, authService.loginRequest(request2));
+        assertEquals(response, authService.loginRequest(requestAuth));
     }
 
     @Test
     void testLoginRequest_InvalidPassword() {
-        when(authUserRepository.findByEmail(request2.getEmail())).thenReturn(Optional.of(newUser));
-        when(passwordEncoder.matches(request2.getPassword(), newUser.getPassword())).thenReturn(false);
+        when(authUserRepository.findByEmail(requestAuth.getEmail())).thenReturn(Optional.of(newUser));
+        when(passwordEncoder.matches(requestAuth.getPassword(), newUser.getPassword())).thenReturn(false);
 
-        CustomException exception = assertThrows(CustomException.class, () -> authService.loginRequest(request2));
+        CustomException exception = assertThrows(CustomException.class, () -> authService.loginRequest(requestAuth));
 
         assertEquals(ServerErrorCodes.PASSWORD_NOT_VALID, exception.getError());
     }
 
     @Test
     void testLoginRequest_UserNotFound() {
-        when(authUserRepository.findByEmail(request2.getEmail())).thenReturn(Optional.empty());
+        when(authUserRepository.findByEmail(requestAuth.getEmail())).thenReturn(Optional.empty());
 
-        CustomException exception = assertThrows(CustomException.class, () -> authService.loginRequest(request2));
+        CustomException exception = assertThrows(CustomException.class, () -> authService.loginRequest(requestAuth));
 
         assertEquals(ServerErrorCodes.USER_NOT_FOUND, exception.getError());
     }

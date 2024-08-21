@@ -1,7 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 8
-      author: dunice (generated)
+      author: dunice
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
         - addForeignKeyConstraint:
@@ -10,5 +10,5 @@ databaseChangeLog:
             baseTableSchemaName: news
             constraintName: FK_NEWSENTITY_ON_USER
             referencedColumnNames: id
-            referencedTableName: users
+            referencedTableName: users_entity
             referencedTableSchemaName: news

@@ -1,8 +1,8 @@
 package com.example.GiscovAdvancedServer.controllers;
 
 import com.example.GiscovAdvancedServer.DTOs.request.PutUserRequest;
-import com.example.GiscovAdvancedServer.DTOs.response.BaseSuccessResponse;
-import com.example.GiscovAdvancedServer.DTOs.response.CustomSuccessResponse;
+import com.example.GiscovAdvancedServer.DTOs.response.common_responce.BaseSuccessResponse;
+import com.example.GiscovAdvancedServer.DTOs.response.common_responce.CustomSuccessResponse;
 import com.example.GiscovAdvancedServer.DTOs.response.PublicUserResponse;
 import com.example.GiscovAdvancedServer.constans.Constants;
 import com.example.GiscovAdvancedServer.constans.ValidationConstants;
@@ -40,8 +40,9 @@ public class UsersController {
 
     @GetMapping("/{id}")
     public ResponseEntity<CustomSuccessResponse<PublicUserResponse>> getUserInfoById(@PathVariable
-        @Size(min = 36, max = 36, message = ValidationConstants.MAX_UPLOAD_SIZE_EXCEEDED)
-        @Pattern(regexp = Constants.REGULAR_UUID, message = ValidationConstants.MAX_UPLOAD_SIZE_EXCEEDED) String id) {
+            @Size(min = 36, max = 36, message = ValidationConstants.MAX_UPLOAD_SIZE_EXCEEDED)
+            @Pattern(regexp = Constants.REGULAR_UUID,
+                    message = ValidationConstants.MAX_UPLOAD_SIZE_EXCEEDED) String id) {
         return ResponseEntity.ok(new CustomSuccessResponse<>(usersService.getUserInfoById(UUID.fromString(id))));
     }
 
@@ -52,7 +53,7 @@ public class UsersController {
 
     @PutMapping()
     public ResponseEntity<CustomSuccessResponse<PublicUserResponse>> replaceUser(@Valid
-                                                                              @RequestBody PutUserRequest request) {
+            @RequestBody PutUserRequest request) {
         return ResponseEntity.ok(new CustomSuccessResponse<>(usersService.replaceUser(request)));
     }
 

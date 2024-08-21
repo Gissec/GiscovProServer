@@ -18,7 +18,7 @@ import lombok.Setter;
 import java.util.Set;
 
 @Entity
-@Table(schema = "news")
+@Table(name = "news_entity",schema = "news")
 @Getter
 @Setter
 @NoArgsConstructor

@@ -1,32 +1,41 @@
 databaseChangeLog:
   - changeSet:
-      id: 7
-      author: dunice (generated)
+      id: 9
+      author: dunice
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
       changes:
         - createTable:
             columns:
               - column:
+                  autoIncrement: true
                   constraints:
                     nullable: false
                     primaryKey: true
-                    primaryKeyName: pk_users
+                    primaryKeyName: pk_request_logs
                   name: id
-                  type: UUID
+                  type: BIGINT
               - column:
-                  name: avatar
+                  name: uri
                   type: VARCHAR(255)
               - column:
-                  name: email
+                  name: author_id
                   type: VARCHAR(255)
               - column:
-                  name: name
+                  name: method
                   type: VARCHAR(255)
               - column:
-                  name: role
+                  name: method_type
                   type: VARCHAR(255)
               - column:
-                  name: password
+                  name: error_message
                   type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: response_code
+                  type: INT
+              - column:
+                  name: timestamp
+                  type: DATETIME
             schemaName: news
-            tableName: users
+            tableName: logs_entity

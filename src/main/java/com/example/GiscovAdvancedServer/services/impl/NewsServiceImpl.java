@@ -35,6 +35,7 @@ public class NewsServiceImpl implements NewsService {
 
     private final NewsMapper newsMapper;
 
+    @Transactional
     public Long createNews(NewsRequest request) {
         NewsEntity news = newsMapper.newsRequestToEntity(request);
         news.setUser(userService.getCurrentUser());
