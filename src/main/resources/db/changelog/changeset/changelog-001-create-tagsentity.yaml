@@ -3,6 +3,12 @@ databaseChangeLog:
       id: 2
       author: dunice
       objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - tableExists:
+                schemaName: news
+                tableName: tags_entity
       changes:
         - createTable:
             columns:

@@ -1,9 +1,9 @@
 package com.example.GiscovAdvancedServer.controllers;
 
-import com.example.GiscovAdvancedServer.DTOs.request.AuthRequest;
-import com.example.GiscovAdvancedServer.DTOs.request.RegisterUserRequest;
-import com.example.GiscovAdvancedServer.DTOs.response.common_responce.CustomSuccessResponse;
-import com.example.GiscovAdvancedServer.DTOs.response.LoginUserResponse;
+import com.example.GiscovAdvancedServer.dto.request.AuthRequest;
+import com.example.GiscovAdvancedServer.dto.request.RegisterUserRequest;
+import com.example.GiscovAdvancedServer.dto.response.common_responce.CustomSuccessResponse;
+import com.example.GiscovAdvancedServer.dto.response.LoginUserResponse;
 import com.example.GiscovAdvancedServer.services.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

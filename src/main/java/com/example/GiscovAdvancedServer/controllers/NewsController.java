@@ -1,11 +1,11 @@
 package com.example.GiscovAdvancedServer.controllers;
 
-import com.example.GiscovAdvancedServer.DTOs.request.NewsRequest;
-import com.example.GiscovAdvancedServer.DTOs.response.CreateNewsSuccessResponse;
-import com.example.GiscovAdvancedServer.DTOs.response.common_responce.CustomSuccessResponse;
-import com.example.GiscovAdvancedServer.DTOs.response.GetNewsOutResponse;
-import com.example.GiscovAdvancedServer.DTOs.response.PageableResponse;
-import com.example.GiscovAdvancedServer.DTOs.response.common_responce.BaseSuccessResponse;
+import com.example.GiscovAdvancedServer.dto.request.NewsRequest;
+import com.example.GiscovAdvancedServer.dto.response.CreateNewsSuccessResponse;
+import com.example.GiscovAdvancedServer.dto.response.common_responce.CustomSuccessResponse;
+import com.example.GiscovAdvancedServer.dto.response.GetNewsOutResponse;
+import com.example.GiscovAdvancedServer.dto.response.PageableResponse;
+import com.example.GiscovAdvancedServer.dto.response.common_responce.BaseSuccessResponse;
 import com.example.GiscovAdvancedServer.constans.Constants;
 import com.example.GiscovAdvancedServer.constans.ValidationConstants;
 import com.example.GiscovAdvancedServer.services.NewsService;

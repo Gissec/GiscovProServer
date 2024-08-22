@@ -1,8 +1,8 @@
 package com.example.GiscovAdvancedServer.services;
 
-import com.example.GiscovAdvancedServer.DTOs.request.AuthRequest;
-import com.example.GiscovAdvancedServer.DTOs.request.RegisterUserRequest;
-import com.example.GiscovAdvancedServer.DTOs.response.LoginUserResponse;
+import com.example.GiscovAdvancedServer.dto.request.AuthRequest;
+import com.example.GiscovAdvancedServer.dto.request.RegisterUserRequest;
+import com.example.GiscovAdvancedServer.dto.response.LoginUserResponse;
 
 public interface AuthService {
 

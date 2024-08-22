@@ -1,6 +1,6 @@
 package com.example.GiscovAdvancedServer.controllers;
 
-import com.example.GiscovAdvancedServer.DTOs.response.common_responce.CustomSuccessResponse;
+import com.example.GiscovAdvancedServer.dto.response.common_responce.CustomSuccessResponse;
 import com.example.GiscovAdvancedServer.constans.Constants;
 import com.example.GiscovAdvancedServer.constans.ValidationConstants;
 import com.example.GiscovAdvancedServer.services.FilesService;

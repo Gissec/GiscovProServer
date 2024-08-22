@@ -1,7 +1,7 @@
 package com.example.GiscovAdvancedServer.services.impl;
 
-import com.example.GiscovAdvancedServer.DTOs.request.PutUserRequest;
-import com.example.GiscovAdvancedServer.DTOs.response.PublicUserResponse;
+import com.example.GiscovAdvancedServer.dto.request.PutUserRequest;
+import com.example.GiscovAdvancedServer.dto.response.PublicUserResponse;
 import com.example.GiscovAdvancedServer.constans.ServerErrorCodes;
 import com.example.GiscovAdvancedServer.error.CustomException;
 import com.example.GiscovAdvancedServer.mappers.UserMapper;

@@ -1,9 +1,9 @@
 package com.example.GiscovAdvancedServer.controllers;
 
-import com.example.GiscovAdvancedServer.DTOs.request.PutUserRequest;
-import com.example.GiscovAdvancedServer.DTOs.response.common_responce.BaseSuccessResponse;
-import com.example.GiscovAdvancedServer.DTOs.response.common_responce.CustomSuccessResponse;
-import com.example.GiscovAdvancedServer.DTOs.response.PublicUserResponse;
+import com.example.GiscovAdvancedServer.dto.request.PutUserRequest;
+import com.example.GiscovAdvancedServer.dto.response.common_responce.BaseSuccessResponse;
+import com.example.GiscovAdvancedServer.dto.response.common_responce.CustomSuccessResponse;
+import com.example.GiscovAdvancedServer.dto.response.PublicUserResponse;
 import com.example.GiscovAdvancedServer.constans.Constants;
 import com.example.GiscovAdvancedServer.constans.ValidationConstants;
 import com.example.GiscovAdvancedServer.services.UsersService;

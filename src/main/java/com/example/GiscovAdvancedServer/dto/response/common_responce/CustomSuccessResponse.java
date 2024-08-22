@@ -1,4 +1,4 @@
-package com.example.GiscovAdvancedServer.DTOs.response.common_responce;
+package com.example.GiscovAdvancedServer.dto.response.common_responce;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;

@@ -1,8 +1,8 @@
 package com.example.GiscovAdvancedServer.mappers;
 
-import com.example.GiscovAdvancedServer.DTOs.request.NewsRequest;
-import com.example.GiscovAdvancedServer.DTOs.response.GetNewsOutResponse;
-import com.example.GiscovAdvancedServer.DTOs.response.TagResponse;
+import com.example.GiscovAdvancedServer.dto.request.NewsRequest;
+import com.example.GiscovAdvancedServer.dto.response.GetNewsOutResponse;
+import com.example.GiscovAdvancedServer.dto.response.TagResponse;
 import com.example.GiscovAdvancedServer.models.NewsEntity;
 import com.example.GiscovAdvancedServer.models.TagsEntity;
 import org.mapstruct.Mapper;

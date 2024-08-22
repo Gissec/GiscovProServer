@@ -1,6 +1,6 @@
 package com.example.GiscovAdvancedServer.error;
 
-import com.example.GiscovAdvancedServer.DTOs.response.common_responce.BaseSuccessResponse;
+import com.example.GiscovAdvancedServer.dto.response.common_responce.BaseSuccessResponse;
 import com.example.GiscovAdvancedServer.constans.Constants;
 import com.example.GiscovAdvancedServer.constans.ServerErrorCodes;
 import com.fasterxml.jackson.databind.ObjectMapper;

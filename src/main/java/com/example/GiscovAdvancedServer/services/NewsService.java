@@ -1,8 +1,8 @@
 package com.example.GiscovAdvancedServer.services;
 
-import com.example.GiscovAdvancedServer.DTOs.request.NewsRequest;
-import com.example.GiscovAdvancedServer.DTOs.response.GetNewsOutResponse;
-import com.example.GiscovAdvancedServer.DTOs.response.PageableResponse;
+import com.example.GiscovAdvancedServer.dto.request.NewsRequest;
+import com.example.GiscovAdvancedServer.dto.response.GetNewsOutResponse;
+import com.example.GiscovAdvancedServer.dto.response.PageableResponse;
 import java.util.List;
 import java.util.UUID;
 

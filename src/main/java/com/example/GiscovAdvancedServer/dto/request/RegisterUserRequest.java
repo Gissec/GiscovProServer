@@ -1,4 +1,4 @@
-package com.example.GiscovAdvancedServer.DTOs.request;
+package com.example.GiscovAdvancedServer.dto.request;
 
 import com.example.GiscovAdvancedServer.constans.ValidationConstants;
 import jakarta.validation.constraints.Email;

@@ -1,6 +1,6 @@
-import com.example.GiscovAdvancedServer.DTOs.request.NewsRequest;
-import com.example.GiscovAdvancedServer.DTOs.response.GetNewsOutResponse;
-import com.example.GiscovAdvancedServer.DTOs.response.PageableResponse;
+import com.example.GiscovAdvancedServer.dto.request.NewsRequest;
+import com.example.GiscovAdvancedServer.dto.response.GetNewsOutResponse;
+import com.example.GiscovAdvancedServer.dto.response.PageableResponse;
 import com.example.GiscovAdvancedServer.constans.ConstantsTest;
 import com.example.GiscovAdvancedServer.constans.ServerErrorCodes;
 import com.example.GiscovAdvancedServer.error.CustomException;
