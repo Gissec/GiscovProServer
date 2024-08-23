@@ -86,7 +86,7 @@ public class NewsServiceImpl implements NewsService {
             newsRepository.save(news);
             return;
         }
-        throw new CustomException(ServerErrorCodes.NEWS_NOT_FOUND);
+        throw new CustomException(ServerErrorCodes.NO_ACCESS_TO_NEWS);
     }
 
     @Transactional

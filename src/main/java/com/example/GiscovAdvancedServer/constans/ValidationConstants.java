@@ -99,4 +99,6 @@ public interface ValidationConstants {
     String USER_ALREADY_EXISTS = "User already exists";
 
     String EXCEPTION_HANDLER_NOT_PROVIDED = "Exception handler not provided";
+
+    String NO_ACCESS_TO_NEWS = "No access to news";
 }
