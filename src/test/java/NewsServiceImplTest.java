@@ -266,7 +266,7 @@ public class NewsServiceImplTest {
         CustomException exception = assertThrows(CustomException.class, () ->
                 newsService.putNews(oldNews.getId(), newsRequest));
 
-        assertEquals(ServerErrorCodes.NEWS_NOT_FOUND, exception.getError());
+        assertEquals(ServerErrorCodes.NO_ACCESS_TO_NEWS, exception.getError());
     }
 
     @Test
